@@ -1,22 +1,22 @@
 # Site settings
 title: Project Pages
 description: "An Integrated Scientific Blogging Template"
-url: "https://projectpages.github.io"
+url: "https://cmackeen.github.io"
 
 
 
 
 # Secondary Parameters
-baseurl: "/project-pages"
-header-img: img/home-bg.jpg
+baseurl: "/cmackeen.gihub.io"
+header-img: img/diagsset.jpg
 headercolor: "#FFFFFF"
 logo: /project-pages/img/logos/Project-Pages-New-Logo-Inverted.png
 
 # Tertiary Parameters
-github_username:  projectpages
-project_repository: project-pages
-disqus_shortname: project-pages
-g-analytics: UA-75881392-1
+github_username:  cmackeen
+project_repository: cmackeen.github.io
+disqus_shortname: cmackeen
+g-analytics: UA-133495017-1
 altmetric: true
 
 # Build settings
