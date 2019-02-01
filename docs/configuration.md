@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuration
+title: EXAFS auto analysis
 nav_order: 2
 ---
 
@@ -49,4 +49,4 @@ addEvent(toggleDarkMode, 'click', function(){
 
 See [Customization]({{ site.baseurl }}{% link docs/customization.md %}) for more information.
 
-
+{: .fs-6 .fw-300 }
