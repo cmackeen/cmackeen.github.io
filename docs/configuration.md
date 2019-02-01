@@ -20,8 +20,8 @@ search_enabled: true
 ```yaml
 # Aux links for the upper right navigation
 aux_links:
-    "Just the Docs on GitHub":
-      - "//github.com/pmarsceill/just-the-docs"
+    "CV quick link":
+      - "http://stanford.edu/~cmackeen"
 ```
 
 ## Color scheme
