@@ -1,7 +1,8 @@
 ---
 layout: default
-title: EXAFS auto analysis
-nav_order: 2
+title: iXAFS auto analysis
+nav_order: 3
+permalink docs/exafs
 ---
 
 # Learning from 25 Years of Processed EXAFS Data
