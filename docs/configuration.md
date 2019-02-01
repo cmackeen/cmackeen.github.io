@@ -21,7 +21,7 @@ search_enabled: true
 # Aux links for the upper right navigation
 aux_links:
     "CV quick link":
-      - "http://stanford.edu/~cmackeen"
+      - "yada--yada-yadaddurlackeen"
 ```
 
 ## Color scheme
