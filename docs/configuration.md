@@ -4,9 +4,9 @@ title: Configuration
 nav_order: 2
 ---
 
-# Configuration
+# Learning from 25 Years of Processed EXAFS Data
 
-Just the Docs has some specific configuration parameters that can be defined in your Jekyll site's `_config.yml` file.
+s the spirit of this software project i 
 
 ## Search enabled
 
@@ -48,3 +48,5 @@ addEvent(toggleDarkMode, 'click', function(){
 </script>
 
 See [Customization]({{ site.baseurl }}{% link docs/customization.md %}) for more information.
+
+
