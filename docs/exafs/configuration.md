@@ -2,7 +2,6 @@
 layout: default
 title: EXAFS auto analysis
 nav_order: 2
-permalink docs/exafs
 ---
 
 # Learning from 25 Years of Processed EXAFS Data
