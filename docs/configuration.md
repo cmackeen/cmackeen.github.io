@@ -1,9 +1,8 @@
 ---
 layout: default
 title: iXAFS auto analysis
-nav_order: 3
 nav_exclude: true
-permalink docs/exafs
+
 ---
 
 # Learning from 25 Years of Processed EXAFS Data
