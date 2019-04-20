@@ -1,6 +1,6 @@
 ---
 layout: default
-title: EXAFS20
+title: Materials of Interest
 parent: Academic
 nav_order: 5
 ---
@@ -17,15 +17,13 @@ nav_order: 5
 ---
 
 
-## 20 years of specialized XAS data
+## Materials Studied in Graduate School
 
-At the moment, I do not have a nice name. I was thinking ''EXAFS20''. I will be posting as I work on this project, so stay tuned!
-* jerbaa tem 1
-* lerba ejrba3
-_or_
+* LiNb_3 doped with Hf, In, Er, Zn
+* MAPbBr3, CsPbBr_3, MAPbI_3
+* CaF_2: Yb
+* Cu12Sb4S_13
 
-* Item 1
-* Item 2
-* Item 3
+## Other
 
-
+I am also currently researching the fabrication of fiber reinforced aerogels
