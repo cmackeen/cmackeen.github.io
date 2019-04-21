@@ -2,7 +2,6 @@
 layout: default
 title: hEXAFS
 parent: Projects
-nav_order: 5
 ---
 
 # Historical EXAFS

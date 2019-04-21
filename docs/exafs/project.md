@@ -5,17 +5,9 @@ nav_order: 4
 permalink docs/exafs
 ---
 
-# Learning from 25 Years of Processed EXAFS Data
+# Projects
 
 
-## Search enabled
-
-## Color scheme
-
-```yaml
-# Color scheme currently only supports "dark" or nil (default)
-color_scheme: "dark"
-```
 <button class="btn js-toggle-dark-mode">::Go stealth::</button>
 
 <script>
