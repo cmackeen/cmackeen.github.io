@@ -21,7 +21,7 @@
   flex-wrap: wrap;
   padding-top: $gutter-spacing-sm;
   padding-bottom: $gutter-spacing-sm;
-  background: url("../assets/sunsetdiag.jpg") no-repeat left;
+  background-image: url("../assets/sunsetdiag.jpg");
   background-size: cover;
   @include mq(md) {
     flex-wrap: nowrap;
