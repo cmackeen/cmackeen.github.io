@@ -80,7 +80,8 @@
 
 .page-header {
   background-color: $sidebar-color;
-
+  opacity: 0.0;
+  filter: alpha(opacity=0);
   @include mq(md) {
     background-color: $body-background-color;
   }
