@@ -9,13 +9,13 @@ permalink: /docs/academic
 # Academic
 
 {: .no_toc } 
-
+<!---
 Since childhood I have been interested in physics and specifically the concept
 of time. Today, time remains important to me because of it's unbounded value.
 Learning and creating takes patience; there are always too many things to do!
 Through the years I pursued a path in physics to understand where our boundary
 of knowledge lay. 
-
+-->
 ![Lederle Research Tower](/assets/lgrt.jpg) 
 
 
@@ -24,7 +24,7 @@ of Massachussets, Amherst , I joined Professor Andrea Pocar's lab to contribute
 research to project EXO ([SLAC EXO
 page](https://www-project.slac.stanford.edu/exo/)). The Enriched Xenon
 Observatory (EXO) is an experiment aiming to detect neutrinoless double-beta
-decay, which would indicate the neutrino is it's own anti-particle (an observed
+decay, which would indicate the neutrino is its own anti-particle (an observed
 Majorana fermion). The set-up consists of a time projection chamber full of
 Xenon 136 that would sit deep in a mine shaft (WIP in New Mexico). To
 understand the behavior of the avalanche photodiodes (APDs) at the ends of the
