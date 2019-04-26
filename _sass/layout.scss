@@ -21,7 +21,6 @@
   flex-wrap: wrap;
   padding-top: $gutter-spacing-sm;
   padding-bottom: $gutter-spacing-sm;
-  background-color: $sidebar-color;
   background: url("../assets/sunsetdiag.jpg") no-repeat left;
   background-size: cover;
   @include mq(md) {
