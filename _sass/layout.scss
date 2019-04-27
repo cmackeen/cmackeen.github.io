@@ -80,8 +80,6 @@
 
 .page-header {
   background-color: $sidebar-color;
-  opacity: 0.70;
-  filter: alpha(opacity=70);
   @include mq(md) {
     background-color: $body-background-color;
   }
@@ -103,7 +101,9 @@
 .navigation,
 .site-title,
 .site-footer {
-
+  
+  opacity: 0.70;
+  filter: alpha(opacity=70);
   @include container;
 
   width: 100%;

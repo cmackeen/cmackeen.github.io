@@ -20,7 +20,7 @@ of knowledge lay.
 
 
 As an undergraduate at University
-of Massachussets, Amherst , I joined Professor Andrea Pocar's lab to contribute
+of Massachusetts, Amherst , I joined Professor Andrea Pocar's lab to contribute
 research to project EXO ([SLAC EXO
 page](https://www-project.slac.stanford.edu/exo/)). The Enriched Xenon
 Observatory (EXO) is an experiment aiming to detect neutrinoless double-beta
