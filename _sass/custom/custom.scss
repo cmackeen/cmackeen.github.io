@@ -31,6 +31,7 @@
 // $purple-300: #381885;
 //
 // $blue-000: #2c84fa;
+$blue-lt-100: #a0efed;
 // $blue-100: #2869e6;
 // $blue-200: #264caf;
 // $blue-300: #183385;
@@ -40,7 +41,7 @@
 // $green-200: #009c7b;
 // $green-300: #026e57;
 //
-// $body-background-color: $white !default;
+$body-background-color: $blue-lt-100;
 $sidebar-color: $green200 !default;
 //$sidebar-color: $grey-lt-000 !default;
 // $code-background-color: $grey-lt-000 !default;
@@ -99,9 +100,9 @@ $sidebar-color: $green200 !default;
 // // Borders
 // //
 //
-// $border: 1px solid;
-// $border-radius: 4px;
-// $border-color: $grey-lt-100;
+$border: 8px solid;
+$border-radius: 4px;
+$border-color: $blue-lt-100;
 //
 // //
 // // Grid system
@@ -109,7 +110,7 @@ $sidebar-color: $green200 !default;
 //
 // $gutter-spacing: $sp-6;
 // $gutter-spacing-sm: $sp-4;
-// $nav-width: 232px;
+$nav-width: 0px;
 // $content-width: 800px;
 //
 // $media-queries: (

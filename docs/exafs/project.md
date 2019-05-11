@@ -2,11 +2,13 @@
 layout: default
 title: Projects
 nav_order: 4
-permalink docs/exafs
+has_children: true
+permalink: docs/exafs
 ---
 
 # Projects
 
+{.Toc}
 
 <button class="btn js-toggle-dark-mode">::Go stealth::</button>
 

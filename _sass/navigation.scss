@@ -5,22 +5,22 @@
 .site-title {
   display: block;
   flex: 1 1 auto;
-  color: $body-heading-color;
   background-color: $sidebar-color;
 
   @include mq(md) {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     z-index: 101;
     height: 60px;
+    width: 100%;
+    background: none;
     padding-top: $sp-4;
     border-bottom: $border $border-color;
   }
 }
 
 .navigation-list {
-  padding: 0;
   margin-top: $sp-4;
   margin-bottom: 0;
   list-style: none;
@@ -31,11 +31,13 @@
 }
 
 .navigation-list-child-list {
-  padding-left: $sp-3;
+  padding-left: 16px;
+  padding-right: $sp-2;
   list-style: none;
 
   .navigation-list-link {
     color: $nav-child-link-color;
+    font-size: 12pt;
   }
 
   .navigation-list-item {
@@ -78,6 +80,8 @@
 
 .navigation-list-link {
   display: block;
+  font-size:14pt;
+  color:white;
   padding-top: $sp-1;
   padding-bottom: $sp-1;
 
@@ -90,7 +94,10 @@
 
 // Small screen nav
 
-.main-nav,
+.main-nav {
+	align: center;
+	padding-left:0px;
+}
 .aux-nav {
   display: none;
 
@@ -120,6 +127,7 @@
 
 .breadcrumb-nav-list {
   padding-left: 0;
+  padding-right: $sp-2;
   margin-bottom: $sp-3;
   list-style: none;
 }

@@ -32,7 +32,9 @@ h4,
 h5,
 h6,
 ol,
-ul,
+ul{
+	padding-left:0;
+}
 pre,
 address,
 blockquote,
@@ -64,12 +66,13 @@ p {
 }
 
 a {
-  color: $link-color;
+  color: #c4ffe6;
   text-decoration: none;
 }
 
 a:not([class]) {
-  text-decoration: none;
+  text-decoration: underline;
+  color: blue;
   background-image: linear-gradient($border-color 0%, $border-color 100%);
   background-repeat: repeat-x;
   background-position: 0 100%;
@@ -94,6 +97,7 @@ figure {
 
 li {
   margin: 0.25em 0;
+  color:white;
 }
 
 img {

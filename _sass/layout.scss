@@ -21,9 +21,9 @@
   flex-wrap: wrap;
   padding-top: $gutter-spacing-sm;
   padding-bottom: $gutter-spacing-sm;
-  background-image: url("../sunsetdiag.jpg");
+  background-image: url("../sunsetdiaglight.png");
   background-size: cover;
-  @include mq(md) {
+  @include mq(sm) {
     flex-wrap: nowrap;
     position: absolute;
     width: $nav-width + 16px;
@@ -36,7 +36,7 @@
   }
 
   @include mq(lg) {
-    width: calc((100% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
+    width: calc((80% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
     min-width: $nav-width;
   }
 }
@@ -64,12 +64,12 @@
     max-width: $content-width;
     padding-top: $gutter-spacing;
     padding-bottom: $gutter-spacing;
-    padding-left: $gutter-spacing * 1.5;
+    padding-left: $gutter-spacing * 0;
     margin-left: $nav-width;
   }
 
   @include mq(lg) {
-    padding-left: $gutter-spacing;
+    padding-left: $gutter-spacing*0;
     margin-left: calc((100% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
   }
 }
@@ -102,8 +102,7 @@
 .site-title,
 .site-footer {
   
-  opacity: 0.70;
-  filter: alpha(opacity=70);
+  opacity: 1;
   @include container;
 
   width: 100%;
