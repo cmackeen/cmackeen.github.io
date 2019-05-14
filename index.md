@@ -2,7 +2,7 @@
 layout: default
 title: Home
 nav_order: 1
-description: "this is the jekyll header description"
+description: "C.A.M. home"
 permalink: /
 ---
 
@@ -15,4 +15,4 @@ permalink: /
 ## Active interests 
 Gardening, Machine Learning, Hockey, Physics, Heliostat, Aerostat,
 Programming, Decentralization, Wireless Communication, 
-
+---
