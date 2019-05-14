@@ -69,8 +69,8 @@
   }
 
   @include mq(lg) {
-    padding-left: $gutter-spacing*0;
-    margin-left: calc((100% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
+    padding-left: $gutter-spacing*2;
+    margin-left: calc((80% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
   }
 }
 
@@ -116,6 +116,7 @@
   @include mq(md) {
     padding-top: $sp-8;
     overflow-y: auto;
+    overflow-x: auto;
     flex: 1 1 auto;
   }
 }
