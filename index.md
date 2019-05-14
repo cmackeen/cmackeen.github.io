@@ -13,6 +13,8 @@ permalink: /
 
 
 ## Active interests 
-Gardening, Machine Learning, Hockey, Physics, Heliostat, Aerostat,
-Programming, Decentralization, Wireless Communication, 
+Gardening, Machine Learning, Hockey, Physics, Heliostat, Aerostat, Programming,
+Decentralization, Wireless Communication 
+
+
 ---
