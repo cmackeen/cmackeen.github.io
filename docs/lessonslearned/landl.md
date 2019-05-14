@@ -28,7 +28,7 @@ important directories start with underscores. I was focused on a
 clean and timeless look, so I wanted to hold this core theme with
 how I approach generating data visuals. The first example can been
 seen in [this
-post](../projects/hexafs/#a-first-look-at-historical-exafs).
+post](../docs/projects/hexafs/#a-first-look-at-historical-exafs).
 
 
 Bokeh was the answer! Maybe I am riding with some recency bias, but Bokeh is
