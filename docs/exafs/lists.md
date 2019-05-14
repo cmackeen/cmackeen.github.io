@@ -16,10 +16,12 @@ The Bridges lab in the Physics department at University California, Santa Cruz s
 {:toc}
 
 ---
+## A first look at historical EXAFS
+As the X-ray absorption spectra Bud Bridges has collected is atom specific, we can get an overview of what elements were looked at over 30 years. Later on we can deduce specific compounds using both metadata and statistical modeling. But for now, we get a quick look at what energies Bridges lab collected data at.
 
-Most lists can be rendered with pure Markdown.
+To do this, I used a couple of filters and so currently this may be pulling from roughly a quarter of all the normalized e-space EXAFS data. A chunk of data are also lost to the low sensitivity of my absorption edge identitifier. 
 
-# Overview
-For over 30 years the Bridges lab has collected and processed EXAFS data, usually from the Stanford Synchrotron Radiation Lightsource.
+Either way, below you can find a colored periodic table. When you hover on an
+element, you can see how may data scans have been collected. It's a start !!
 
-# Posts of Progress
+{%include ptable_trends.html %}

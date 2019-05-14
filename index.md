@@ -6,11 +6,13 @@ description: "this is the jekyll header description"
 permalink: /
 ---
 
-# The eventual home of Cameron's webpage
+# Thanks for visiting
 {: .fs-9 }
 
 {: .fs-6 .fw-300 }
 
 
-## Active interests
+## Active interests 
+Gardening, Machine Learning, Hockey, Physics, Heliostat, Aerostat,
+Programming, Decentralization, Wireless Communication, 
 

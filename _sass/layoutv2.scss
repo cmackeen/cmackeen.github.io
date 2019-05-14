@@ -23,8 +23,7 @@
   padding-bottom: $gutter-spacing-sm;
   background-image: url("../sunsetdiaglight.png");
   background-size: cover;
-
-  @include mq(md) {
+  @include mq(sm) {
     flex-wrap: nowrap;
     position: absolute;
     width: $nav-width + 16px;
@@ -37,7 +36,7 @@
   }
 
   @include mq(lg) {
-    width: calc((100% - #{$nav-width + $content-width }) / 2 );
+    width: calc((80% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
     min-width: $nav-width;
   }
 }
@@ -65,13 +64,13 @@
     max-width: $content-width;
     padding-top: $gutter-spacing;
     padding-bottom: $gutter-spacing;
-    padding-left: $gutter-spacing * 1.5;
+    padding-left: $gutter-spacing * 0;
     margin-left: $nav-width;
   }
 
   @include mq(lg) {
-    padding-left: $gutter-spacing;
-    margin-left: calc((100% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
+    padding-left: $gutter-spacing*2;
+    margin-left: calc((80% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
   }
 }
 
@@ -81,7 +80,6 @@
 
 .page-header {
   background-color: $sidebar-color;
-
   @include mq(md) {
     background-color: $body-background-color;
   }
@@ -103,15 +101,13 @@
 .navigation,
 .site-title,
 .site-footer {
-
+  
   opacity: 1;
   @include container;
-  background-color: none;
 
   width: 100%;
 
   @include mq(lg) {
-
     width: $nav-width + 32px;
   }
 }
@@ -120,6 +116,7 @@
   @include mq(md) {
     padding-top: $sp-8;
     overflow-y: auto;
+    overflow-x: auto;
     flex: 1 1 auto;
   }
 }
@@ -137,10 +134,9 @@ body {
 // stylelint-enable selector-no-type
 
 .site-footer {
-
   position: absolute;
   bottom: 0;
-  opacity: 0.4;
+  opacity: 0.0;
   padding-top: $sp-4;
   padding-bottom: $sp-4;
 
@@ -148,6 +144,6 @@ body {
     position: static;
     align-self: flex-end;
     justify-self: end;
-    background-color: none;
+    background-color: $sidebar-color;
   }
 }

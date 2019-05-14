@@ -12,9 +12,8 @@
   background: $link-color;
 }
 
-html {
-  @include fs-4;
-}
+html,
+
 
 body {
   font-family: $body-font-family;
