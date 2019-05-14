@@ -2,14 +2,11 @@
 layout: default
 title: Home
 nav_order: 1
-description: "this is the jekyll header description"
+description: "homepage"
 permalink: /
 ---
 
 # Thanks for visiting
-{: .fs-9 }
-
-{: .fs-6 .fw-300 }
 
 
 ## Active interests 
