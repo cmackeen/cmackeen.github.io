@@ -19,10 +19,14 @@ nav_order: 5
 
 ## Materials Studied in Graduate School
 
-* LiNbO$_3$ doped with Hf, In, Er, Zn
-* MAPbBr3, CsPbBr_3, MAPbI_3
-* CaF_2: Yb
-* Cu12Sb4S_13
+-- LiNbO<sub>3</sub> doped with Hf, In, Er, Zn
+
+-- MAPbBr<sub>3</sub>, CsPbBr<sub>3</sub>, MAPbI<sub>3</sub>
+
+-- CaF<sub>2</sub>: Yb
+
+-- Cu<sub>12</sub>Sb<sub>4</sub>S<sub>13</sub>
+
 
 ## Other
 

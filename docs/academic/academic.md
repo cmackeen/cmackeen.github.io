@@ -27,7 +27,7 @@ and cooled, while a test source of Fe^{55} could be detected. By analyzing the s
 
 Directly from UMass, I continued onto a PhD program at University of
 California, Santa Cruz. As a result of my small lab experience mentioned above,
-I looked for another research opportunity and found my spot in Bud Bridges lab. 
+I looked for another research opportunity and found my spot in [Bud Bridges lab](http://exafs.ucsc.edu/). 
 
 Over the ast 30 years, Bud Bridges specialized in studying local crystal structure by analyzing the extended x-ray absorption fine-struture region in the spectra. While I was in school with Bud as my advisor, I studied various complex materials --mostly inorganic. My defense abstract is as follows (for those looking to be put to sleep):
 
