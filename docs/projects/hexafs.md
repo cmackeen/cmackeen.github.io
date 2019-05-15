@@ -34,7 +34,7 @@ The Bridges lab in the Physics department at University California, Santa Cruz s
 
 ---
 ## A first look at historical EXAFS
-5/12/2019
+*5/12/2019*
 {: .fw-300 }
 
 The X-ray absorption spectra Bud Bridges has collected is atom specific, so we can get an overview of what elements were looked at over 30 years. Later on we can deduce specific compounds using both metadata and statistical modeling. But for now, we get a quick look at what energies Bridges lab collected data at.

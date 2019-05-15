@@ -17,7 +17,7 @@ As I look to share succinct content on my Projects page, I would also think it h
 
 ## Bokeh Periodic Table
 
-5/13/2019 
+*5/13/2019*
 {: .fw-300 } 
 
 
