@@ -26,8 +26,8 @@ search_enabled: true
 
 # Aux links for the upper right navigation
 aux_links:
-  "CV quick link":
-          - "http://www.stanford.edu/~cmackeen"
+  "Resume quick link":
+          - "/assets/cammackeenphd-hh.pdf"
 
 # Color scheme currently only supports "dark" or nil (default)
 color_scheme: nil
