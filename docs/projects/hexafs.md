@@ -47,7 +47,7 @@ data are also lost to the low sensitivity of my absorption edge identitifier.
 Either way, below you can find a colored periodic table. When you hover on an
 element, you can see how may data scans have been collected. 
 
-{%include ptable_trend2.html %}
+{% include ptable_trend2.html %}
 
 
 Evidently, Bud has a lot of history with manganates. The next post will feature the effectiveness of my edge detection, and how to improve it without running through all ~50,000 absorption spectra.
