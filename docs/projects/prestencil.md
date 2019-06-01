@@ -44,6 +44,6 @@ But there are occasions where another set of EXAFS oscillations of an edge aroun
 *5/20/2019*
 {: .fw-300 }
 
-
+![](/assets/esfit_stenc.jpg)
 
 
