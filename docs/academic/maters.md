@@ -30,4 +30,4 @@ nav_order: 5
 
 ## Other
 
-I am also currently researching the fabrication of fiber reinforced aerogels
+I am also currently researching the fabrication of fiber reinforced aerogels, in an effort to minimize density and compressibility. 
