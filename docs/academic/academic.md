@@ -33,7 +33,7 @@ Directly from UMass, I continued onto a PhD program at University of
 California, Santa Cruz. As a result of my small lab experience mentioned above,
 I looked for another research opportunity and found my spot in [Bud Bridges lab](http://exafs.ucsc.edu/). 
 
-Over the ast 30 years, Bud Bridges specialized in studying local crystal
+Over the past 30 years, Bud Bridges specialized in studying local crystal
 structure by analyzing the extended x-ray absorption fine-struture region in
 the spectra. While I was in school with Bud as my advisor, I studied various
 complex materials --mostly inorganic. The following overview is my PhD defense

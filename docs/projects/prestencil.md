@@ -47,14 +47,14 @@ But there are occasions where another set of EXAFS oscillations of an edge aroun
 
 ![](/assets/predge_bleed_91.png)
 
-(source:JB Boyce, FG Bridges, T Claeson, *Local-Structure of BaBi$_x$Pb$_{1-x}$O$_3$ Determined by X-ray Absorption Spectroscopy* (1991) [link](/assets/bridgeboyce91.pdf) )
+(source:JB Boyce, FG Bridges, T Claeson, *Local-Structure of BaBi$$_x$$Pb$$_{1-x}$$O$$_3$$ Determined by X-ray Absorption Spectroscopy* (1991) [link](/assets/bridgeboyce91.pdf) )
 
 The procedure followed in 1991 was not designed for batch use, and we have many
 temperatures and files to run over, so it is worth setting a framework where
 python can optimize a "stencil" fit to the large oscillations in the pre-edge.
 
 As an overview, when looking at the EXAFS part of the spectrum (>100eV above
-edge), you may find an second absorption edge at hi $k$. Sometimes, it is low
+edge), you may find an second absorption edge at hi $$k$$. Sometimes, it is low
 enough in energy that the EXAFS oscillations are not negligible, and maybe you
 even want to analyze the second edge as well. 
 
@@ -62,7 +62,7 @@ The tail end of the first absorption edge then needs to be subtracted from the
 second edge, as is evident in the remnant oscillations of the higher energy
 pre-edge. We approached this problem with experience using FEFF for fitting
 real-space EXAFS data, which allows us to simulate the lower energy EXAFS
-oscillations out to extremely high $k$ ($\sim 20 \AA$). Next, we take this
+oscillations out to extremely high $$k$$ ($$\sim 20 \AA$$). Next, we take this
 extended simulated standard, and use it functionally as a stencil to try to fit
 the second pre-edge. We only optimize parameters to scale the amplitude, and
 move the energy. Fitting with this rigid stencil instills faith in our real-space fit procedures and FEFF.
