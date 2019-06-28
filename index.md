@@ -30,7 +30,8 @@ sparks thoughts worth sharing, please email me at cammackeen@gmail.com.
 
 
 
-### Active interests:
+Active interests:
+{: .fw-200 }
 
 Artificial Intelligence, Autonomy (human and otherwise), Gardening, Machine Learning, Treking, Physics,  Heliostats, Dirigibles and Aerostatics,
 Programming, Music Production and Recording,  Bitcoin, Decentralization, Sailing, Wireless Communication, Shortwave Radio, the Internet 
