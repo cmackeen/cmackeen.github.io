@@ -64,7 +64,7 @@ The tail end of the first absorption edge then needs to be subtracted from the
 second edge, as is evident in the remnant oscillations of the higher energy
 pre-edge. We approached this problem with experience using FEFF for fitting
 real-space EXAFS data, which allows us to simulate the lower energy EXAFS
-oscillations out to extremely high $$k$$ ($$\sim 20 \AA$$). Next, we take this
+oscillations out to extremely high $$k$$ ($$\sim 20 $$ Å). Next, we take this
 extended simulated standard, and use it functionally as a stencil to try to fit
 the second pre-edge. We only optimize parameters to scale the amplitude, and
 move the energy. Fitting with this rigid stencil instills faith in our real-space fit procedures and FEFF.
