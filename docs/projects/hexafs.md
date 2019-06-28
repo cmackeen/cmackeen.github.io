@@ -42,6 +42,11 @@ First plot here is the distribution of extracted means of the post-edge region. 
 
 {% include post_edge_mean_mu.html %}
 
+And here is the distribution of standard deviation in the post-edge area
+
+
+{% include post_edge_std_mu.html %}
+
 ## A first look at historical EXAFS
 5/12/2019
 {: .fw-300 }
