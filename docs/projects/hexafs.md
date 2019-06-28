@@ -33,6 +33,15 @@ The Bridges lab in the Physics department at University California, Santa Cruz s
 {:toc}
 
 ---
+## General characteristics of spectra
+6/27/2019
+{: .fw-300 }
+
+As the data is supposed to be normalized, I thought comparing the post-edge mean and standard deviation would be valuable. 
+First plot here is the distribution of extracted means of the post-edge region. Interestingly the main distribution centered near 1 seems to have a bimodal feature.
+
+{% include post_edge_mean_mu.html %}
+
 ## A first look at historical EXAFS
 5/12/2019
 {: .fw-300 }
