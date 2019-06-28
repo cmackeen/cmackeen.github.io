@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Bitcoinj
+nav_order: 5
 parent: Projects
 ---
 <button class="btn js-toggle-dark-mode">~Nightmode~</button>
