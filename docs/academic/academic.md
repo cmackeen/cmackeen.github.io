@@ -31,7 +31,7 @@ on a tabletop experiment with a small team.
 
 
 
-![Seabright Beach at Sunset](/assets/llighthousesunsetbanner.jpg) 
+![Seabright Beach at Sunset](/assets/lighthousesunsetbanner.jpg) 
 
 Directly from UMass, I continued onto a PhD program at University of
 California, Santa Cruz. As a result of my small lab experience mentioned above,
