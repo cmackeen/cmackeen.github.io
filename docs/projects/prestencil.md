@@ -25,7 +25,9 @@ addEvent(toggleDarkMode, 'click', function(){
 
 # Simulated Pre-edge Subtraction 
 
-{: .no_toc } When analyzing the fine structure
+{: .no_toc } 
+
+When analyzing the fine structure
 in the post edge of a spectrum, it is important to have rigorous background
 removal. This is done generally with spline fitting of a slowly oscillating
 background, where we can choose the number of knots using the Nyquist-Shannon sampling theorem:   $$ N_{\rm knots}  =  1 + \frac{2R_{\rm bkg} \Delta k}{\pi} $$ .
