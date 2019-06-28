@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Supratmos Systems
-nav_order: 3
 parent: Projects
 ---
 <button class="btn js-toggle-dark-mode">~Nightmode~</button>
