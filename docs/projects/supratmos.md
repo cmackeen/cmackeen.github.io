@@ -21,7 +21,7 @@ addEvent(toggleDarkMode, 'click', function(){
 })
 </script>
 
-#Supratmos Systems
+# Supratmos Systems
 
 Supratmos Systems is the working title for a dirigible project I am pumping
 away at. General theme of our goal: develop technology for sustainable
@@ -50,6 +50,6 @@ So I think the world needs to turn to non-helium aerostats.
 The following is an interactive plot calculating the payload of a single hydrogen filled balloon, if it were covered in a low density foam shell. The crossing of the x-axis represents the critical radius a balloon needs to generate lift.
 
 
-{%include payload_slider.html%}
+{% include payload_slider.html %}
 
 It turns out that a foam coated balloon with a 2 meter radius can lift 10kg, so it only takes maybe 100 of these balloons to lift a metric ton. In considering a craft filled with these balloons in a cylindrical configuration does not necessarily exceed 100m in length, our toy-model hydrogen-ball filled dirigible is not a behemoth. 
