@@ -26,8 +26,7 @@ been singing in my band, [Salmon Hammock](http://www.soundcloud.com/salmonhammoc
 have been crudely teaching myself violin.
 
 In 2016 I joined the UC Santa Cruz ice hockey team for it's first year in the
-ACHA. As a graduate student, I played the role of "wiley veteran" initially but
-soon grew into "mean mackeen" in the corners. The second season we were much
+ACHA. The second season we were much
 improved and  even notched a win in the PCHA playoffs in Tahoe, I am proud of
 the banana slugs who put the time into organizing this team in Santa Cruz. 
 
