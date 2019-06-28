@@ -8,7 +8,6 @@ permalink: /docs/academic
 
 # Academic
 
-{: .no_toc } 
 ![Lederle Research Tower](/assets/lgrt.jpg) 
 
 
@@ -28,6 +27,11 @@ and temperature. You can look at slides of [the apparatus
 here](/assets/apdslides.pdf).  Under the supervision of then post-doc, Dr.
 Timothy Vaughn Daniels, my colleague and I learned the many facets of working
 on a tabletop experiment with a small team. 
+
+
+
+
+![Seabright Beach at Sunset](/assets/llighthousesunsetbanner.jpg) 
 
 Directly from UMass, I continued onto a PhD program at University of
 California, Santa Cruz. As a result of my small lab experience mentioned above,
