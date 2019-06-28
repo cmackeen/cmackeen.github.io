@@ -23,7 +23,7 @@ sparks thoughts worth sharing, please email me at cammackeen@gmail.com.
 
 {: .fs-6 .fw-300 }
 
-Here is my [resume](/assets/cmackeen-hh.pdf)
+Here is my [resume](/assets/cmackeenphd-hh.pdf)
 
 
 
