@@ -23,18 +23,26 @@ addEvent(toggleDarkMode, 'click', function(){
 # Supratmos Systems
 
 Supratmos Systems is the working title for a dirigible project I am pumping
-away at. General theme of our goal: develop technology for sustainable
-autonomous dirigibles. While I have gotten caught up in imagining and
-speculating how the world will use airships, it started with just one balloon.
-I was sailing and 10 NM off the coast of Big Sur I saw a balloon floating on
-top of the water...
+away at. Sussinct goal: develop technology for sustainable
+autonomous dirigibles. While I have gotten caught up in speculating how the world will use airships, it started with just one balloon.
+I was crew on a sailling passage down the central California coast, and I saw a balloon floating on
+top of the water. It seemed like evidence to answer an old question: where do balloons go when they fly away? The ocean! I imagined it flew 100 statute miles, or drifted even further. These natural forces can move a balloon a long ways incidentally, what if you could control it? Like sailing the skies, in some modern dirigible you can harness the power of the wind. 
 
-Now I *especially* know the cost of helium. I have seen days where it just
-isn't delivered to the synchrotron at a national lab, where it is used for
-cryogenics below 77K. Why, you may ask? There just isn't enough, and it isn't
-coming back. It's expensive as is. From looking at the less economic but
+From that point, I began researching the history and physics of aerostats. The problem with modern aerostat applications is the scarcity of helium, the lifting gas.
+
+
+
+Now I *especially* know the cost of helium. I have seen days at the lab where hellium just
+isn't delivered to the synchrotron, where it is used for
+cryogenic experiments below 77K. Why, you may ask? There just isn't enough, and it isn't
+coming back. 
+
+
+We can look to the vacuum airship, as first described by [Francesco Lana de Terzi](https://en.wikipedia.org/wiki/Airship#/media/File:Flying_boat.png). There is also hydrogen. 
+
+If we look at a less economic but
 renewable extraction of hydrogen gas, and assuming electric costs of 12¢/ kWh
-(which is high), then it commercial electric costs $$\sim$$ .054 ¢/L . The
+(which is high), then commercial electrically synthesized hydrogen costs $$\sim$$ 0.054 ¢/L . The
 current commercial rate for grade-A helium is .76 ¢/L , and that is not taking into account it is twice as dense.
 [source](https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/mcs-2019-heliu.pdf) 
 
