@@ -80,6 +80,24 @@ vibrational properties of MAPbBr3 in different structural phases.
 ## Publications
 The following are links to publications during my dissertation research at University of California, Santa Cruz:
 
+
+
+[Substitution of Er, In, and Hf in LiNbO<sub>3</sub> : Evidence for multiple defect
+distributions about dopant sites (2018)](/assets/qsit05_v1_2page.pdf)
+
+[Effect of temperature on light induced degradation in methylammonium
+lead iodide perovskite thin films and solar cells (2018)](/assets/1-s2.0-S0927024817305482-main.pdf)
+
 [CaF<sub>2</sub>:Yb is not described by the impurity trapped exciton model (2017)](/assets/acs.jpclett.7b01103.pdf)
 
 [Stable and reversible x-ray induced valence inversion in CaF<sub>2</sub>:Yb(2017)](/assets/acs.jpcc.7b09161.pdf)
+
+
+[Evolution of Iodoplumbate Complexes in Methylammonium Lead
+Iodide Perovskite Precursor Solutions (2017)](/assets/acs.chemmater.6b04917.pdf)
+
+
+
+[No difference in local structure aboat a Zn dopant for congruent and stoichiometric LiNbO<sub>3</sub>  (2016)](assets/PhysRevB.94.014101.pdf)
+
+[PhD thesis (2019)](/assets/thesis_public.pdf)
