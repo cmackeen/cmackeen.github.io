@@ -23,6 +23,7 @@ sparks thoughts worth sharing, please email me at cammackeen@gmail.com.
 
 {: .fs-6 .fw-300 }
 
+Here is my [resume](/assets/cmackeen-hh.pdf)
 
 
 
@@ -30,8 +31,7 @@ sparks thoughts worth sharing, please email me at cammackeen@gmail.com.
 
 
 
-Active interests:
-{: .fw-200 }
+### Active interests:
 
 Artificial Intelligence, Autonomy (human and otherwise), Gardening, Machine Learning, Treking, Physics,  Heliostats, Dirigibles and Aerostatics,
 Programming, Music Production and Recording,  Bitcoin, Decentralization, Sailing, Wireless Communication, Shortwave Radio, the Internet 
