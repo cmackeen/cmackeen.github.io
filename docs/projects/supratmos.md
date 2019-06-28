@@ -23,7 +23,7 @@ addEvent(toggleDarkMode, 'click', function(){
 # Supratmos Systems
 
 Supratmos Systems is the working title for a dirigible project I am pumping
-away at. Sussinct goal: develop technology for sustainable
+away at. Succinct goal: develop technology for sustainable
 autonomous dirigibles. While I have gotten caught up in speculating how the world will use airships, it started with just one balloon.
 I was crew on a sailling passage down the central California coast, and I saw a balloon floating on
 top of the water. It seemed like evidence to answer an old question: where do balloons go when they fly away? The ocean! I imagined it flew 100 statute miles, or drifted even further. These natural forces can move a balloon a long ways incidentally, what if you could control it? Like sailing the skies, in some modern dirigible you can harness the power of the wind. 
@@ -32,10 +32,8 @@ From that point, I began researching the history and physics of aerostats. The p
 
 
 
-Now I *especially* know the cost of helium. I have seen days at the lab where hellium just
-isn't delivered to the synchrotron, where it is used for
-cryogenic experiments below 77K. Why, you may ask? There just isn't enough, and it isn't
-coming back. 
+Now I *especially* know the cost of helium. I have seen days where
+helium isn't delivered to the synchrotron, and cryogenic experiments must be postponed. There simply isn't enough helium, and it isn't coming back. 
 
 
 We can look to the vacuum airship, as first described by [Francesco Lana de Terzi](https://en.wikipedia.org/wiki/Airship#/media/File:Flying_boat.png). There is also hydrogen. 
