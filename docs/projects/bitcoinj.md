@@ -29,10 +29,13 @@ addEvent(toggleDarkMode, 'click', function(){
 {: .no_toc } 
 
 
+
+I have been generally interested in blockchain technology like bitcoin for five years now. Although I have done my share of armchair research into bitcoin and decentralized systems, I still lack technical understanding. With free time, a mentor, and a desire to contribute to open source code, I have started to work on bitcoinj. I will let the [BitcoinJ website](https://bitcoinj.github.io/) explain the details; from what I understand BitcoinJ is a java library that underly many applications that interact with the bitcoin blockchain. Continued development on BitcoinJ will generate more possibilities for what a blockchain app can do.
+
+For now, I am getting re-familiarized with compiled languages and testing Java applications for the first time. My current task is to clean up a bunch of javadoc exception errors. The joy of learning!
+
+
 ---
-## A Java 
-*5/20/2019*
-{: .fw-300 }
 
 
 
