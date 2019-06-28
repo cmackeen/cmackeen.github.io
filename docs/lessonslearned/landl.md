@@ -15,6 +15,13 @@ As I look to share succinct content on my Projects page, I would also think it h
 1. TOC
 {:toc}
 
+## Bokeh Sliders for Interactive Plot
+coming soon ... 
+
+
+## Argparse and Commandline bash executed python tools
+coming soon...
+
 ## Bokeh Periodic Table
 
 5/13/2019 
