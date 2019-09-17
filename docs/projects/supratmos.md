@@ -23,7 +23,9 @@ addEvent(toggleDarkMode, 'click', function(){
 # Supratmos Systems
 
 Supratmos Systems is the working title for a dirigible project I am pumping
-away at. Succinct goal: develop technology for sustainable autonomous
+away at. 
+
+Succinct goal: develop technology for sustainable autonomous
 dirigibles. While I have gotten caught up in speculating how the world will use
 airships, it started with just one balloon.  I was crew on a sailling passage
 down the central California coast, and I saw a balloon floating on top of the

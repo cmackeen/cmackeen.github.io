@@ -35,11 +35,7 @@ background, where we can choose the number of knots using the Nyquist-Shannon sa
 But there are occasions where another set of EXAFS oscillations of an edge around 300eV below your desired edge contribute to the background. Since this specific background is also EXAFS oscillations, it will not necessarily be filtered out by the generic spline fitting. 
 
 
-## Table of contents
-{: .no_toc .text-delta }
 
-1. TOC
-{:toc}
 
 ---
 ## Simple yet specialized background subtraction in the pre-edge and beyond
@@ -51,12 +47,13 @@ But there are occasions where another set of EXAFS oscillations of an edge aroun
 
 (source:JB Boyce, FG Bridges, T Claeson, *Local-Structure of BaBi$$_x$$Pb$$_{1-x}$$O$$_3$$ Determined by X-ray Absorption Spectroscopy* (1991) [link](/assets/bridgeboyce91.pdf) )
 
-The procedure followed in 1991 was not designed for batch use, and we have many
-temperatures and files to run over, so it is worth setting a framework where
-python can optimize a "stencil" fit to the large oscillations in the pre-edge.
+The procedure followed in Boyce *et al* (1991) was not designed for batch use,
+and we have many spectra over a range of temperatures, so it is worth setting a
+framework where python can optimize a "stencil" fit to the large oscillations
+in the pre-edge.
 
 As an overview, when looking at the EXAFS part of the spectrum (>100eV above
-edge), you may find an second absorption edge at hi $$k$$. Sometimes, it is low
+edge), you may find a second absorption edge at hi $$k$$. Sometimes, it is low
 enough in energy that the EXAFS oscillations are not negligible, and maybe you
 even want to analyze the second edge as well. 
 
