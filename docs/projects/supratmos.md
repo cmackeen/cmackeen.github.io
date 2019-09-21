@@ -80,8 +80,8 @@ is not a behemoth.
 
 How does this compare to a cargo ship (you may be asking)? A 20 ft cargo
 container can have a full mass of 25 metric tons; one ship may carry a thousand
-of these containers (tought to match). But back to the single container --it
-costs roughly $2500 to ship it, so $500/1000kg, or 50 cents per kilo. The
+of these containers (tough to match). But back to the single container --it
+costs roughly $2500 to ship it, so $100/1000kg, or 10 cents per kilo. The
 lifting gas costs us roughly .167 ¢/kg in our model with 2 meter radius
 balloons bunched together. 
 
