@@ -32,12 +32,29 @@ autonomous dirigibles.
 
 The past few months have been touch and go, and I have been engulfed in acquiring materials for the first phase of prototyping. As I rely on simulation and programs to probe what is *worth* pursuing, I am hopeful to pull simulation and reality together in a lightweight flame resistant prototype. 
 
-With regards to simulating I knew my payload estimates must include altitude, which entails using a rough simulation of absolute pressure and temperature through the troposphere and stratusphere. With these parameters, I can derive how the density of air and hydrogen varies at altitude. There are many design considerations to come, but in this post the model will assume we are starting with a volume V$_0$ that will remain fixed via venting hydrogen. Dirigible technology from 1910-1936 includes innovations for rigid and semi-rigid airships that include a pressurized envelope around the smaller gas bags. Again, these early attempts focus on the cross-over size when a balloon covered in a flame proof material can be safe and float. 
+With regards to simulating I knew my payload estimates must include altitude,
+which entails using a rough simulation of absolute pressure and temperature
+through the troposphere and stratusphere. With these parameters, I can derive
+how the density of air and hydrogen varies at altitude. There are many design
+considerations to come, but in this post the model will assume we are starting
+with a volume V0 that will remain fixed via venting hydrogen. Dirigible
+technology from 1910-1930s includes innovations for rigid and semi-rigid
+airships that include a pressurized envelope around the smaller gas bags.
+Again, these early attempts focus on the cross-over size when a balloon covered
+in a flame proof material can be safe and float. 
 
 
 First, a surface representing payload as a function volume and altitude:
 
-{% include pload_surf_rho25_x6cm.html %}
+
+
+<div class="video-container">
+    <iframe src="../../projects/supratmos/pload_surface.html" height="700" width="700" allowfullscreen="" frameborder="0">
+    </iframe>
+</div>
+
+
+{% include pload_surface.html %}
 
 The above interactive plot is an estimation based on a flameproof shell of 6cm of foam with density = 25kg/m³ . It is clear how dramatically the payload decreases with altitude. This payload, like in the following plots, is simply defined by the net mass the balloon displaced of air. That is, it is the mass of air displaced minus the mass of hydrogen gas minus mass of foam and mylar. 
 
