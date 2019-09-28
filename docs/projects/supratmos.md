@@ -49,7 +49,7 @@ First, a surface representing payload as a function volume and altitude:
 
 
 <div class="video-container">
-    <iframe src="/_includes/pload_surface.html" height="700" width="700" allowfullscreen="" frameborder="0">
+    <iframe src="https://cmackeen.github.io/assets/pload_surface.html" height="700" width="700" allowfullscreen="" frameborder="0">
     </iframe>
 </div>
 
