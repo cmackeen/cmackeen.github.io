@@ -20,6 +20,10 @@ addEvent(toggleDarkMode, 'click', function(){
 })
 </script>
 
+
+{% include lib/mathjax.html %}
+
+
 # Supratmos Systems
 
 Supratmos Systems is the working title for a dirigible project I am pumping
@@ -30,19 +34,21 @@ autonomous dirigibles.
 9/25/2019
 {: .fw-300 }
 
-The past few months have been touch and go, and I have been engulfed in acquiring materials for the first phase of prototyping. As I rely on simulation and programs to probe what is *worth* pursuing, I am hopeful to pull simulation and reality together in a lightweight flame resistant prototype. 
+
+
+The past few months have been touch and go, and I have been engulfed in acquiring materials for the first phase of prototyping. As I rely on simulation and programs to probe what is *worth* pursuing, I am hopeful to pull simulation and reality closer via lightweight flame resistant prototype. 
 
 With regards to simulating I knew my payload estimates must include altitude,
 which entails using a rough simulation of absolute pressure and temperature
-through the troposphere and stratusphere. With these parameters, I can derive
+through the troposphere and stratosphere. With these parameters, I can derive
 how the density of air and hydrogen varies at altitude. There are many design
 considerations to come, but in this post the model will assume we are starting
-with a volume V0 that will remain fixed via venting hydrogen. Dirigible
+with a volume V₀ that will remain fixed via venting hydrogen. Dirigible
 technology from 1910-1930s includes innovations for rigid and semi-rigid
 airships that include a pressurized envelope around the smaller gas bags.
-Again, these early attempts focus on the cross-over size when a balloon covered
-in a flame proof material can be safe and float. 
-
+But we will start with a simple model, because these early attempts focus on the cross-over size when a balloon covered
+in a flame proof material/shell can be safe and float. 
+2
 
 First, a surface representing payload as a function volume and altitude:
 
@@ -56,13 +62,18 @@ First, a surface representing payload as a function volume and altitude:
 
 {% include pload_surface.html %}
 
-The above interactive plot is an estimation based on a flameproof shell of 6cm of foam with density = 25kg/m³ . It is clear how dramatically the payload decreases with altitude. This payload, like in the following plots, is simply defined by the net mass the balloon displaced of air. That is, it is the mass of air displaced minus the mass of hydrogen gas minus mass of foam and mylar. 
+The above interactive plot is an estimation based on a flameproof shell of 6cm of foam with density = 25kg/m³ . It is clear how dramatically the payload decreases with altitude. This payload, like in the following plots, is simply defined by the net mass of aerostatic unit. More explicitly:
 
-Now, a more concise plot. This plot shows "critical lines" for different foam thicknesses and payloads, with the balloon held at constant volume via venting (like before). Bear in mind the y-axis is on a log scale.
+$$payload = V_{bal} ( \rho_{air} - \rho_{H_2} ) - (M_{mylar}+M_{foam}) $$
+ 
+
+Now, a more concise plot. This plot shows "critical lines" of equivalent payload for different foam thicknesses (red/blue) and payloads (solid/dashed), with the balloon held at constant volume via venting (like before). Bear in mind the y-axis is on a log scale.
 
 {% include critvol_alt_fullmsl.html %}
 
 
+
+With the aformentioned density and thickness, it seems a reasonable estimate to balloon volume for this simplified unit is ~7000 m³ (*r ~ 12m*). This takes into consideration we keep the balloon at constant volume and vent hydrogen to equilibrate pressure. The next post will expound upon tradeoffs of partial filling at sea-level. 
 
 
 ## So, How Much can Hydrogen lift?
