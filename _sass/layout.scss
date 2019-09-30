@@ -70,7 +70,7 @@
 
   @include mq(lg) {
     padding-left: $gutter-spacing;
-    margin-left: calc((70% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
+    margin-left: calc((120% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
   }
 }
 
