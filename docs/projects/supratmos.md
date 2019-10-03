@@ -55,7 +55,7 @@ First, a surface representing payload as a function volume and altitude:
 
 
 <div class="video-container">
-    <iframe src="https://cmackeen.github.io/assets/pload_surface.html" height="700" width="700" allowfullscreen="" frameborder="0">
+    <iframe src="https://cmackeen.github.io/assets/pload_surface.html" height="700px" width="700px" allowfullscreen="" frameborder="10px">
     </iframe>
 </div>
 
@@ -69,7 +69,7 @@ $$payload = V_{bal} ( \rho_{air} - \rho_{H_2} ) - (M_{mylar}+M_{foam}) $$
 
 Now, a more concise plot. This plot shows "critical lines" of equivalent payload for different foam thicknesses (red/blue) and payloads (solid/dashed), with the balloon held at constant volume via venting (like before). Bear in mind the y-axis is on a log scale.
 
-{% include critvol_alt_fullmsl.html max-width=100% %}
+{% include critvol_alt_fullmsl.html max-width="80%" %}
 
 
 
