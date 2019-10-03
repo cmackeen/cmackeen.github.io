@@ -69,7 +69,7 @@ $$payload = V_{bal} ( \rho_{air} - \rho_{H_2} ) - (M_{mylar}+M_{foam}) $$
 
 Now, a more concise plot. This plot shows "critical lines" of equivalent payload for different foam thicknesses (red/blue) and payloads (solid/dashed), with the balloon held at constant volume via venting (like before). Bear in mind the y-axis is on a log scale.
 
-{% include critvol_alt_fullmsl.html %}
+{% include critvol_alt_fullmsl.html max-width=100% %}
 
 
 
