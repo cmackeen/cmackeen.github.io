@@ -21,9 +21,10 @@
   flex-wrap: wrap;
   padding-top: $gutter-spacing-sm;
   padding-bottom: $gutter-spacing-sm;
-  background-image: url("../sunsetdiag.jpg");
+  background-image: url("../sunsetdiaglight.png");
   background-size: cover;
-  @include mq(sm) {
+
+  @include mq(md) {
     flex-wrap: nowrap;
     position: absolute;
     width: $nav-width + 16px;
@@ -36,7 +37,7 @@
   }
 
   @include mq(lg) {
-    width: calc((100% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
+    width: calc((100% - #{$nav-width + $content-width }) / 2 );
     min-width: $nav-width;
   }
 }
@@ -70,7 +71,7 @@
 
   @include mq(lg) {
     padding-left: $gutter-spacing;
-    margin-left: calc((120% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
+    margin-left: calc((100% - #{$nav-width + $content-width}) / 2 + #{$nav-width*0.5});
   }
 }
 
@@ -80,6 +81,7 @@
 
 .page-header {
   background-color: $sidebar-color;
+
   @include mq(md) {
     background-color: $body-background-color;
   }
@@ -101,14 +103,15 @@
 .navigation,
 .site-title,
 .site-footer {
-  
-  opacity: 0.70;
-  filter: alpha(opacity=70);
+
+  opacity: 1;
   @include container;
+  background-color: none;
 
   width: 100%;
 
   @include mq(lg) {
+
     width: $nav-width + 32px;
   }
 }
@@ -134,9 +137,10 @@ body {
 // stylelint-enable selector-no-type
 
 .site-footer {
+
   position: absolute;
   bottom: 0;
-  opacity: 0.0;
+  opacity: 0.4;
   padding-top: $sp-4;
   padding-bottom: $sp-4;
 
@@ -144,6 +148,6 @@ body {
     position: static;
     align-self: flex-end;
     justify-self: end;
-    background-color: $sidebar-color;
+    background-color: none;
   }
 }
