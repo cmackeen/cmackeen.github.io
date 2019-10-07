@@ -30,6 +30,11 @@ Supratmos Systems is the working title for a dirigible project I am pumping
 away at. Succinct goal: develop technology for sustainable
 autonomous dirigibles. 
 
+## Module Engineering and Geometry of HCP Tetrahedron
+
+{% include 4hcp_tetra.html %}
+
+
 ## Payload Analysis round 1
 9/25/2019
 {: .fw-300 }
