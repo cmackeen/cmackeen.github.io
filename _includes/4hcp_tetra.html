@@ -47,9 +47,37 @@
         
             // This creates a basic Babylon Scene object (non-mesh)
             var scene = new BABYLON.Scene(engine);
+            scene.clearColor = BABYLON.Color3.White();
         
-            // This creates and positions a free camera (non-mesh)
-            var camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(1, 2, -10), scene);
+        
+            	//Materials
+        	var redMat = new BABYLON.StandardMaterial("red", scene);
+        	
+        	redMat.emissiveColor = new BABYLON.Color3(255, 0, 0);
+        	
+        	
+        	var greenMat = new BABYLON.StandardMaterial("green", scene);
+        	greenMat.diffuseColor = new BABYLON.Color3(0, 255, 0);
+            greenMat.emissiveColor = new BABYLON.Color3(0, 255, 0);
+        
+        
+        	
+        	var blueMat = new BABYLON.StandardMaterial("blue", scene);
+        	blueMat.emissiveColor = new BABYLON.Color3(0, 0, 255);
+        
+        
+            //********** ARC ROTATE CAMERA EXAMPLE **************************/
+        
+            // Creates, angles, distances and targets the camera
+        	var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 0, 0), scene);
+        
+            // This positions the camera
+            camera.setPosition(new BABYLON.Vector3(0, 0, -10));
+        
+            // This attaches the camera to the canvas
+            camera.attachControl(canvas, true);
+        
+        	/**************************************************************/
         
             // This targets the camera to scene origin
             camera.setTarget(BABYLON.Vector3.Zero());
@@ -63,39 +91,30 @@
             // Default intensity is 1. Let's dim the light a small amount
             light.intensity = 0.7;
         
-            var greenMat = new BABYLON.StandardMaterial("greenMat", scene);
-        	greenMat.emissiveColor = new BABYLON.Color3(0, 1, 0);
+             // This html was created for the babylonjs playground  
+            var sphere0  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
+            var sphere1  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
+            var sphere2  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
         
-          // This html was created for the babylonjs playground  
-        var sphere0  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
-        var sphere1  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
-        var sphere2  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
-        var sphere3  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
-        var sphere4  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
-        var sphere5  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
-        var sphere6  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
-        var sphere7  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
+            var sphere4  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 32}, scene);   
         
-         
-         //Moving the speheres' originssphere0.position.x =0.0
-        sphere0.position.y =0.0
-        sphere0.position.z =0.0
-        sphere1.position.x =1.0
-        sphere1.position.y =0.5773502691896257
-        sphere1.position.z =1.6329931618554518
-        sphere2.position.x =1.0
-        sphere2.position.y =1.7320508075688772
-        sphere2.position.z =0.0
-        sphere1.material = greenMat
+            
+            //Moving the speheres' originssphere0.position.x =0.0
+            sphere0.position.y =0.0
+            sphere0.position.z =0.0
+            sphere1.position.x =1.0
+            sphere1.position.y =0.5773502691896257
+            sphere1.position.z =1.6329931618554518
+            sphere2.position.x =1.0
+            sphere2.position.y =1.7320508075688772
+            sphere2.position.z =0.0
         
-        sphere4.position.x =2.0
-        sphere4.position.y =0.0
-        sphere4.position.z =0.0
+            sphere4.position.x =2.0
         
-        
-        
-            // Our built-in 'ground' shape.
-            var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 0, height: 0}, scene);
+            sphere4.material = blueMat;
+            sphere0.material = redMat;
+            sphere1.material = greenMat;
+            sphere2.material = BABYLON.Color3(.8, 0.4, 0.7);
         
             return scene;
         
