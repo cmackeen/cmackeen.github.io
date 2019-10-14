@@ -15,12 +15,436 @@ As I look to share succinct content on my Projects page, I would also think it h
 1. TOC
 {:toc}
 
+## Babylonjs Interactive Spheres
+babylonjs playground makes it easy to rnder interactive 3D scenes and download it as injectable html.
+
+First, I hade to generate hexagonal close packed coordinates:
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from consts import *
+
+
+'''
+we're using  python3 for this . . 
+'''
+num=3
+rad=1
+
+aa=hcp_coords(num, rad)
+jstext=open("babylonjs_inject.js", 'a')
+
+jstext.write(" // This html was created for the babylonjs playground  \n")
+print(aa)
+
+for i in range(len(aa)-2):
+	jstext.write("var sphere" + str(i)+ "  = BABYLON.MeshBuilder.CreateSphere(\"sphere \", {diameter: 2, segments: 32}, scene);   \n")
+	
+
+
+jstext.write("\n \n //Moving the speheres' origins")
+
+for i in range(len(aa)-2):
+	jstext.write("sphere"+str(i)+".position.x =" +str(aa[i][0]) + "\n")
+	jstext.write("sphere"+str(i)+".position.y =" +str(aa[i][1]) + "\n")
+	jstext.write("sphere"+str(i)+".position.z =" +str(aa[i][2]) + "\n")
+
+jstext.close()
+```
+
+...  MORE on it's way ....
+
+## Bokeh 3D interactive iframe via inline visjs Graph3D
+
+I wanted a smooth interactive 3D mesh plot on the gitpage of dirigible payload as a function of volume and altitude. This proved tricky, and because the site is static the normal bokeh 3D template in the gallery did not work. Further, when I finally stapled together this bokeh plot with inline javascript TS code, jekyll did not include it with simple injected html via liquid tags from the _includes directory. I needed to render the 3D plot to html, change the axis labels and title in that html, and embed it as an iframe from the /assets/ directory. Alas we get [this plot](/projects/docs/supratmos/##Payload-Analysis-round-1); kinda informative, but more pretty!
+
+Code is below, and this review will be updated shortly.
+
+
+```python
+from __future__ import division
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from consts import *
+from atmos_prop import *
+from matplotlib import cm
+from mpl_toolkits.mplot3d import Axes3D
+
+
+
+from bokeh.core.properties import Instance, String
+from bokeh.models import ColumnDataSource, LayoutDOM
+from bokeh.io import show
+from bokeh.util.compiler import TypeScript
+from bokeh.plotting import output_file
+from bokeh.layouts import column
+
+#Conditions that will alter surface plot
+
+alt_max=13000
+
+volrange=[6000,20000]
+volmin=volrange[0]
+volmax=volrange[1]
+
+foamrho_in=25
+foamthick_in=.06
+
+####################
+
+atm=atmosphere()
+sea_level_atm=101325
+x=np.linspace(0,alt_max,31)
+pressure=[]
+temp=[]
+airrho_var=[]
+h2rho_var=[]
+
+
+
+class dirble:
+	def __init__(self):
+		print('brrrrrhhhkpkpkpzzzznnnn  .  .  .   starting dirigible')
+
+		 
+	def payload(self,balvolmax, balnum, foamthick, foamrho, h2rho,airrho,gasvol):
+		foam_vol=sphr(invsphr(balvolmax)+2*foamthick)[0] - balvolmax
+		if gasvol>balvolmax:
+			m_gasnet=balvolmax*(airrho -h2rho)
+		else:
+			m_gasnet=gasvol*(airrho -h2rho)
+		mylrho=1390
+		m_mylar=0.000127*sphr(invsphr(balvolmax))[1]*mylrho
+		m_net=balnum*(m_gasnet - (m_mylar+foam_vol*foamrho))
+		
+		pload=m_net
+		return pload,m_gasnet
+
+
+def dyn_volrat(pressure, temp):
+	return 1.*temp/pressure*(sea_level_atm/268.15)
+
+vol_rat=[]
+for i in x:
+	pressure.append(atm.piecewise_atmos(i)[0])
+	temp.append(atm.piecewise_atmos(i)[1])
+	airrho_var.append(alt_air_rho(atm.piecewise_atmos(i)[0],atm.piecewise_atmos(i)[1]))
+
+	h2rho_var.append(2*(atm.piecewise_atmos(i)[0]*.00100784)/(8.314*(atm.piecewise_atmos(i)[1]+273.15)))
+	vol_rat.append( dyn_volrat( atm.piecewise_atmos (i) [0],atm.piecewise_atmos(i)[1]+273.15))
+
+def dynvol(pressure,temp,init_v):
+	return init_v* 1.*temp/pressure*(sea_level_atm/268.15)
+
+skytanic=dirble()
+payload_2d=[]
+payload_fixedvol=[]
+mgasnet=[]
+#maxvol=200000
+
+vol_space=np.linspace(volmin,volmax,31)
+init_volfrac=0.4
+
+for vol_ix,maxvol in zip(range(len(vol_space)), vol_space):
+	payload=[]
+	for alt_ix, i in zip(range(len(x)), x):
+		airrho_var=alt_air_rho(atm.piecewise_atmos(i)[0],atm.piecewise_atmos(i)[1])
+		h2rho_var=2*(atm.piecewise_atmos(i)[0]*.00100784)/(8.314*(atm.piecewise_atmos(i)[1]+273.15))
+		payload.append(  skytanic.payload(maxvol,1,foamthick_in,foamrho_in,h2rho_var,airrho_var, dynvol(atm.piecewise_atmos (i) [0],atm.piecewise_atmos(i)[1]+273.15,init_volfrac*maxvol))[0])
+		#payload_fixedvol.append(  skytanic.payload(maxvol,1,.05,60,h2rho_var[alt_ix],airrho_var[alt_ix], dynvol(atm.piecewise_atmos (i) [0],atm.piecewise_atmos(i)[1]+273.15,1*maxvol))[0])
+		#mgasnet.append(skytanic.payload(maxvol,1,.05,60,h2rho_var[alt_ix],airrho_var[alt_ix],dynvol(atm.piecewise_atmos (i) [0],atm.piecewise_atmos(i)[1]+273.15,init_volfrac*maxvol))[1])
+	payload_2d.append(payload)
+
+'''
+def functionz(vol,alt):
+		airrho_var=alt_air_rho(atm.piecewise_atmos(alt)[0],atm.piecewise_atmos(alt)[1])
+		h2rho_var=2*(atm.piecewise_atmos(alt)[0]*.00100784)/(8.314*(atm.piecewise_atmos(alt)[1]+273.15))
+		return skytanic.payload(vol,1,.05,60,h2rho_var,airrho_var, dynvol(atm.piecewise_atmos (alt) [0],atm.piecewise_atmos(alt)[1]+273.15,init_volfrac*vol))[0]
+
+'''
+
+
+###### .ts wrapped stuff
+
+
+
+##############################################
+##############################################
+
+
+TS_CODE = """
+// This custom model wraps one part of the third-party vis.js library:
+//
+//     http://visjs.org/index.html
+//
+// Making it easy to hook up python data analytics tools (NumPy, SciPy,
+// Pandas, etc.) to web presentations using the Bokeh server.
+
+import {LayoutDOM, LayoutDOMView} from "models/layouts/layout_dom"
+import {ColumnDataSource} from "models/sources/column_data_source"
+import {LayoutItem} from "core/layout"
+import * as p from "core/properties"
+
+declare namespace vis {
+  class Graph3d {
+    constructor(el: HTMLElement, data: object, OPTIONS: object)
+    setData(data: vis.DataSet): void
+  }
+
+  class DataSet {
+    add(data: unknown): void
+  }
+}
+
+// This defines some default options for the Graph3d feature of vis.js
+// See: http://visjs.org/graph3d_examples.html for more details.
+const OPTIONS = {
+  width: '900px',
+  height: '900px',
+  showPerspective: true,
+  showGrid: true,
+  keepAspectRatio: true,
+  verticalRatio: 1.0,
+  legendLabel: 'stuff',
+  cameraPosition: {
+    horizontal: -0.35,
+    vertical: 0.22,
+    distance: 1.8,
+  },
+}
+
+
+// To create custom model extensions that will render on to the HTML canvas
+// or into the DOM, we must create a View subclass for the model.
+//
+// In this case we will subclass from the existing BokehJS ``LayoutDOMView``
+export class Surface3dView extends LayoutDOMView {
+  model: Surface3d
+
+  private _graph: vis.Graph3d
+
+  initialize(): void {
+    super.initialize()
+
+    const url = "https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.min.js"
+    const script = document.createElement("script")
+    script.onload = () => this._init()
+    script.async = false
+    script.src = url
+    document.head.appendChild(script)
+  }
+
+  private _init(): void {
+    // Create a new Graph3s using the vis.js API. This assumes the vis.js has
+    // already been loaded (e.g. in a custom app template). In the future Bokeh
+    // models will be able to specify and load external scripts automatically.
+    //
+    // BokehJS Views create <div> elements by default, accessible as this.el.
+    // Many Bokeh views ignore this default <div>, and instead do things like
+    // draw to the HTML canvas. In this case though, we use the <div> to attach
+    // a Graph3d to the DOM.
+    this._graph = new vis.Graph3d(this.el, this.get_data(), OPTIONS)
+
+    // Set a listener so that when the Bokeh data source has a change
+    // event, we can process the new data
+    this.connect(this.model.data_source.change, () => {
+      this._graph.setData(this.get_data())
+    })
+  }
+
+  // This is the callback executed when the Bokeh data has an change. Its basic
+  // function is to adapt the Bokeh data source to the vis.js DataSet format.
+  get_data(): vis.DataSet {
+    const data = new vis.DataSet()
+    const source = this.model.data_source
+    for (let i = 0; i < source.get_length()!; i++) {
+      data.add({
+        x: source.data[this.model.x][i],
+        y: source.data[this.model.y][i],
+        z: source.data[this.model.z][i],
+      })
+    }
+    return data
+  }
+
+  get child_models(): LayoutDOM[] {
+    return []
+  }
+
+  _update_layout(): void {
+    this.layout = new LayoutItem()
+    this.layout.set_sizing(this.box_sizing())
+  }
+}
+
+// We must also create a corresponding JavaScript BokehJS model subclass to
+// correspond to the python Bokeh model subclass. In this case, since we want
+// an element that can position itself in the DOM according to a Bokeh layout,
+// we subclass from ``LayoutDOM``
+export namespace Surface3d {
+  export type Attrs = p.AttrsOf<Props>
+
+  export type Props = LayoutDOM.Props & {
+    x: p.Property<string>
+    y: p.Property<string>
+    z: p.Property<string>
+    data_source: p.Property<ColumnDataSource>
+  }
+}
+
+export interface Surface3d extends Surface3d.Attrs {}
+
+export class Surface3d extends LayoutDOM {
+  properties: Surface3d.Props
+
+  constructor(attrs?: Partial<Surface3d.Attrs>) {
+    super(attrs)
+  }
+
+  // The ``__name__`` class attribute should generally match exactly the name
+  // of the corresponding Python class. Note that if using TypeScript, this
+  // will be automatically filled in during compilation, so except in some
+  // special cases, this shouldn't be generally included manually, to avoid
+  // typos, which would prohibit serialization/deserialization of this model.
+  static __name__ = "Surface3d"
+
+  static initClass() {
+    // This is usually boilerplate. In some cases there may not be a view.
+    this.prototype.default_view = Surface3dView
+
+    // The @define block adds corresponding "properties" to the JS model. These
+    // should basically line up 1-1 with the Python model class. Most property
+    // types have counterparts, e.g. ``bokeh.core.properties.String`` will be
+    // ``p.String`` in the JS implementatin. Where the JS type system is not yet
+    // as rich, you can use ``p.Any`` as a "wildcard" property type.
+    this.define<Surface3d.Props>({
+      x:            [ p.String  ],
+      y:            [ p.String   ],
+      z:            [ p.String   ],
+      data_source:  [ p.Instance ],
+    })
+  }
+}
+Surface3d.initClass()
+"""
+
+# This custom extension model will have a DOM view that should layout-able in
+# Bokeh layouts, so use ``LayoutDOM`` as the base class. If you wanted to create
+# a custom tool, you could inherit from ``Tool``, or from ``Glyph`` if you
+# wanted to create a custom glyph, etc.
+class Surface3d(LayoutDOM):
+
+    # The special class attribute ``__implementation__`` should contain a string
+    # of JavaScript (or CoffeeScript) code that implements the JavaScript side
+    # of the custom extension model.
+    __implementation__ = TypeScript(TS_CODE)
+
+    # Below are all the "properties" for this model. Bokeh properties are
+    # class attributes that define the fields (and their types) that can be
+    # communicated automatically between Python and the browser. Properties
+    # also support type validation. More information about properties in
+    # can be found here:
+    #
+    #    https://bokeh.pydata.org/en/latest/docs/reference/core.html#bokeh-core-properties
+
+    # This is a Bokeh ColumnDataSource that can be updated in the Bokeh
+    # server by Python code
+    data_source = Instance(ColumnDataSource)
+
+    # The vis.js library that we are wrapping expects data for x, y, and z.
+    # The data will actually be stored in the ColumnDataSource, but these
+    # properties let us specify the *name* of the column that should be
+    # used for each field.
+    x = String
+
+    y = String
+
+    z = String
+
+
+
+##############################################
+##############################################
+output_file("pload_surface_pt4vfrac.html")
+
+
+#######plotting portion
+
+surfdata=np.array(payload_2d)
+
+length = surfdata.shape[0]
+width = surfdata.shape[1]
+
+zeroplane=np.zeros((length,width))
+X, Y= np.meshgrid(np.linspace(volmin,volmax,length), np.linspace(0,alt_max,width))
+
+
+source = ColumnDataSource(data=dict(x=X, y=Y, z=np.transpose(surfdata)))
+sourcezero = ColumnDataSource(data=dict(x=X, y=Y, z=np.transpose(zeroplane)))
+
+
+surface = Surface3d(x="x", y="y", z="z", data_source=source)
+Surface3d(x="x", y="y", z="z", data_source=sourcezero)
+
+
+layout=column(surface)
+show(layout)
+
+```
+
+
 ## Bokeh Sliders for Interactive Plot
 coming soon ... 
 
 
 ## Argparse and Commandline bash executed python tools
-coming soon...
+
+The development of a useful and accesible tool to remove oscillations in the
+pre-edge area of x-ray absorption data from [this post](../projects/prestencil/)
+included command line functionality. This functionality was derived from code provided on [omgenomics
+post](http://omgenomics.com/python-command-line-program/) that shows a quick and easy template for argparse usage in python. My code snippet below shows a couple added things, and the "937" was used as a unique numeric switch. The short github for this tool is [here](https://github.com/cmackeen/exafsbk).
+
+
+```python
+def main():
+    parser=argparse.ArgumentParser(description="Takes input 2 column (tab sep) list, expicitly titled 'stencdat.inp'. Left column is data files to be corrected, Right column is simulated ks 'stencil' files. Cheers  ")
+    parser.add_argument("-es",help="Energy of the stencil's edge [eV] (the lower energy edge tat bleeds into edge of interest)" ,dest="e_stenc", type=float, required=True)
+    parser.add_argument("-e1",help="Edge of interest [eV] (Default=auto from max edge slope)" ,dest="e1", type=float, default=37)
+    parser.add_argument("-amp",help="Manually fix scaling amplitude of stencil" ,dest="ampfix", type=float, default=937)
+    parser.add_argument("-eshift",help="Manually fix energy shift of stencil" ,dest="eshfix", type=float, default=937)
+    parser.add_argument("-off",help="Use when pre-edge does not seem to oscillate around 0 (Default is no constant offset)" ,dest="offset_bool",action="store_true",default=False)
+    parser.set_defaults(func=run)
+    args=parser.parse_args()
+    args.func(args)
+
+
+#-----------------------------------------------------------------------------------------------
+
+
+
+# set number of rows of header (default 14):
+header_length = 14
+# length to cut data to
+cut_length = 25
+cut1_length = 125
+# delete temp header file and data file after cominbed?
+cleanup = bool(True)
+
+def run(args):
+
+    E_stenc = args.e_stenc # these match the "dest": dest="input"
+    E1 = args.e1 # from dest="output"
+    file_name='stencdat.inp'
+    offset=args.offset_bool
+    
+    #E1=22121.5
+#e_stenc=21761.5
+
+```
 
 ## Bokeh Periodic Table
 
