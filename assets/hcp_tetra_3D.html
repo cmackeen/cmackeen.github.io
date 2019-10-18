@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>Babylon.js sample code</title>
+
+        <!-- Babylon.js -->
+        <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+        <script src="https://preview.babylonjs.com/ammo.js"></script>
+        <script src="https://preview.babylonjs.com/cannon.js"></script>
+        <script src="https://preview.babylonjs.com/Oimo.js"></script>
+        <script src="https://preview.babylonjs.com/gltf_validator.js"></script>
+        <script src="https://preview.babylonjs.com/earcut.min.js"></script>
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+        <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+        <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+        <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+        <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+
+        var createScene = function () {
+        
+            // This creates a basic Babylon Scene object (non-mesh)
+            var scene = new BABYLON.Scene(engine);
+            scene.clearColor = BABYLON.Color3.White();
+        
+            //********** ARC ROTATE CAMERA EXAMPLE **************************/
+        
+            // Creates, angles, distances and targets the camera
+            var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 2, 2), scene);
+        
+            // This positions the camera
+            camera.setPosition(new BABYLON.Vector3(0, 0, -13));
+        
+            // This attaches the camera to the canvas
+            camera.attachControl(canvas, true);
+        
+            /**************************************************************/
+        
+            // This targets the camera to scene origin
+            camera.setTarget(BABYLON.Vector3.Zero());
+        
+            // This attaches the camera to the canvas
+            camera.attachControl(canvas, true);
+        
+            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(3, 1, 0), scene);
+        
+            // Default intensity is 1. Let's dim the light a small amount
+            light.intensity = 0.7;
+        
+             // This html was created for the babylonjs playground  
+            var center  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: .3, segments: 5}, scene);   
+        
+            var sphere0  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 17}, scene);   
+        
+            
+            var sphere1  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 17}, scene);   
+            var sphere2  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 17}, scene);   
+        
+            var sphere4  = BABYLON.MeshBuilder.CreateSphere("sphere ", {diameter: 2, segments: 17}, scene);   
+        
+            ////// Makin the planes
+        
+            
+            /////////
+              //
+            var matn = new BABYLON.StandardMaterial('stairsmat', scene);
+            
+            matn.alpha = 1;
+        
+            var matSpheres = new BABYLON.StandardMaterial('stairsmat', scene);
+            matSpheres.diffuseColor = BABYLON.Color3.Blue();
+            matSpheres.emissiveColor = new BABYLON.Color3(0.1,0.1,0.1);
+            matSpheres.alpha = 0.99;
+        
+                  //
+            var matSpheresb = new BABYLON.StandardMaterial('stairsmat', scene);
+            matSpheresb.diffuseColor = BABYLON.Color3.Blue();
+            matSpheresb.emissiveColor = new BABYLON.Color3(0.6,0.4,0.1);
+            matSpheresb.alpha = 0.97;
+        
+            var matC = new BABYLON.StandardMaterial('stairsmat', scene);
+            matC.diffuseColor = BABYLON.Color3.Blue();
+            matC.emissiveColor = new BABYLON.Color3(0.8,0.8,0.8);
+            matC.alpha = 0.8;
+        
+            var matblack = new BABYLON.StandardMaterial('stairsmat', scene);
+            matblack.diffuseColor = BABYLON.Color3.Black();
+            matblack.emissiveColor = new BABYLON.Color3(0,0,0);
+            matblack.alpha = 0.6;
+        
+            //Moving the speheres' origins
+            center.position.x=1
+            center.position.y=.57735
+            center.position.z=.40823
+            center.material=matblack
+        
+        
+            sphere0.position.y =0.0
+            sphere0.position.z =0.0
+            sphere0.material = matSpheres
+        
+            sphere1.position.x =1.0
+            sphere1.position.y =0.5773502691896257
+            sphere1.position.z =1.6329931618554518
+            sphere1.material = matSpheres
+        
+        
+            sphere2.position.x =1.0
+            sphere2.position.y =1.7320508075688772
+            sphere2.position.z =0.0
+        
+            sphere2.material = matSpheresb
+        
+        
+            sphere4.position.x =2.0
+            sphere4.material = matSpheres
+        
+        
+            //var plane1src = new BABYLON.Plane(-2.82842712,  1.63299316,  1.15470054,  -1/4.646);
+            //var plane1 = BABYLON.MeshBuilder.CreatePlane("plane",    {length:5, width:9, height:9, sourcePlane: plane1src, sideOrientation: BABYLON.Mesh.DOUBLESIDE},  scene);
+            scene.clipPlane4= new BABYLON.Plane(-0.        ,  0.        , -3.46410162,  -3.46210162)
+        
+        var tet_scale_coords1=[[-1.22474487,  0.70710678, -1. ],[-0.22474487,  1.28445705,  0.63299316],[-0.22474487,  2.43915759, -1.],[ 0.77525513,  0.70710678, -1.]]
+        var tet_scale_coords2=[[1.22474487, -0.70710678,  1. ],[2.22474487, -0.12975651,  2.63299316],[2.22474487, 1.02494403, 1.        ],[3.22474487, -0.70710678,  1.]]
+        var tet_scale_coordsno=[[-2.4494897427831788, -1.4142135623730951, -1.0],
+         [1.0, 0.5773502691896257, 4.632993161855452],
+         [1.0000000000000002, 4.5604779323150675, -1.0],
+         [4.449489742783179, -1.4142135623730951, -1.0]]
+        
+            var tetrahedra= { "name":"Heptagonal Prism", "category":["Prism"], "vertex":tet_scale_coordsno,"face":[[0,1,2],[0,2,3],[0,3,1],[1,3,2]]};
+        
+        //var mesh = BABYLON.MeshBuilder.CreatePolyhedron("h", {custom: tetrahedra}, scene);
+        
+        
+        var mesh = BABYLON.MeshBuilder.CreatePolyhedron("h", {custom: tetrahedra, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+        mesh.material=matn
+        
+        // WORLD AXIS turn off later
+        // show axis
+        
+        
+            return scene;
+        
+        };
+__createScene = createScene;
+        
+        var engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+        var scene = createScene();
+
+        engine.runRenderLoop(function () {
+            if (scene) {
+                scene.render();
+            }
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>

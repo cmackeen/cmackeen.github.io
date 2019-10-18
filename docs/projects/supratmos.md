@@ -31,8 +31,9 @@ away at. Succinct goal: develop technology for sustainable
 autonomous dirigibles. 
 
 ## Module Engineering and Geometry of HCP Tetrahedron
+What if we did not cover each balloon with a flame-proof system to stymie sympathetic detonation? I first look to hexagonal close-packing and find that packing spherical balloons in a regular tetrahedron may minimize surface area of our flame-proof system. Below I show a model (using babylonjs) of 4 balloons covered by a tetrahedron, with one side removed so that we can peer inside. Go ahead, clock and drag around!
 
-{% include 4hcp_tetra.html %}
+{% include hcp_tetra_3D.html %}
 
 
 ## Payload Analysis round 1
