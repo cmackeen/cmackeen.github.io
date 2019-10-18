@@ -14,7 +14,7 @@ University of California, Santa Cruz in March 2019.
 ---
 ## Personal
 
-![Camandre MacKeen](/assets/cam_pro.png)
+![Camandre MacKeen](/assets/cam_pro.jpg)
 
 
 I grew up in the northeast and have continuously sought to create something new
