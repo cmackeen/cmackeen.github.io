@@ -31,10 +31,24 @@ away at. Succinct goal: develop technology for sustainable
 autonomous dirigibles. 
 
 ## Module Engineering and Geometry of HCP Tetrahedron
-What if we did not cover each balloon with a flame-proof system to stymie sympathetic detonation? I first look to hexagonal close-packing and find that packing spherical balloons in a regular tetrahedron may minimize surface area of our flame-proof system. Below I show a model (using babylonjs) of 4 balloons covered by a tetrahedron, with one side removed so that we can peer inside. Go ahead, clock and drag around!
+9/25/2019
+{: .fw-300 }
+As a preamble: in the yet-to-be published Payload Analysis round 2, I explore partial filling of balloons at sea level. In the 1st round of analysis my model was based on slight pressurization (*very* slight) of a balloon at mean sea-level (MSL), with constant one-way venting of hydrogen to maintain near-equilibrium pressure; this leads to a constant volume. I explored (but have not shared) what payload vs altitude looks like when you partially fill the baloon, so it expands in volume upon rising. I aim to have expansion until around 9km altitude, and I found this can be done with ~40% initial fill. Moving forward....
+
+What if we did not cover each balloon with a flame-proof system to stymie sympathetic detonation? I first look to hexagonal close-packing and find that packing spherical balloons in a regular tetrahedron  minimizes surface area of our flame-proof system. Below I show a model (using babylon-js) of 4 balloons covered by a tetrahedron, with one side removed so that we can peer inside. Go ahead, click and drag around! [Shift+Scroll-wheel zooms in window]. In the future I will cut the points of the tetrahedron to approach a polyhedron resmbling a round-corner tetrahedron. The plane-geometry needed to make this model turns into too much of a side-track task. 
 
 {% include hcp_tetra_3D.html %}
 
+
+This visual simulation of a module is of great help. I call it a HCP-tetrahedron of 4 balloons, or HCP-tet4 for short. Well, was my intuition correct: do payload calculations agree? I included a new method under my 'dirgible' class that calculates the payload for n balloons surrounded by a regular tetrahedron of flame-proof material. The following plot shows payload vs total volume of hydrogen, and also includes the fact that the balloons are slack at MSL. That is, the flame proof framework is large and allows expansion of inner balloons until alt=8km. 
+
+{% include pload_hcp_v_4bal.html %}
+
+For reference, I have a chart showing tetrahedra height for volume of H₂. Again keep in mind that the balloons are only filled 40% at MSL. 
+
+{% include ref_tetedge_v_h2vol.html %}
+
+It is clear the advantage in this simple compromise between safety and payload: not every balloon needs to be covered. This is just one example of a realistic approach, but there are many ways to pack spheres and protect them from each other. Different packing methods and architecture can simultaneously provide safety systems and structural integrity to an airship. For the time being, I aim to focus on empricial testing of flame-proof systems as I am convinced of the lift potential of such a craft. 
 
 ## Payload Analysis round 1
 9/25/2019

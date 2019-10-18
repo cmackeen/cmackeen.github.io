@@ -14,12 +14,15 @@ University of California, Santa Cruz in March 2019.
 ---
 ## Personal
 
+![Camandre MacKeen](/assets/cam_pro.png)
+
+
 I grew up in the northeast and have continuously sought to create something new
 and different. Whether that is a song, or a program, or a device, or this
 website!  I enjoy sailing and hope to travel to many welcoming shores; I
 appreciate a cold glass of water after a hot and salty voyage. 
 
-![Camandre MacKeen](/assets/cam_mallorca.jpeg)
+
 
 I have played the drum set most of my life, but in the past few years have
 been singing in my band, [Salmon Hammock](http://www.soundcloud.com/salmonhammock). Also, I
