@@ -31,7 +31,7 @@ away at. Succinct goal: develop technology for sustainable
 autonomous dirigibles. 
 
 ## Module Engineering and Geometry of HCP Tetrahedron
-9/25/2019
+10/18/2019
 {: .fw-300 }
 As a preamble: in the yet-to-be published Payload Analysis round 2, I explore partial filling of balloons at sea level. In the 1st round of analysis my model was based on slight pressurization (*very* slight) of a balloon at mean sea-level (MSL), with constant one-way venting of hydrogen to maintain near-equilibrium pressure; this leads to a constant volume. I explored (but have not shared) what payload vs altitude looks like when you partially fill the baloon, so it expands in volume upon rising. I aim to have expansion until around 9km altitude, and I found this can be done with ~40% initial fill. Moving forward....
 
