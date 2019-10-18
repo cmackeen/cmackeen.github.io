@@ -48,7 +48,10 @@ For reference, I have a chart showing tetrahedra height for volume of H₂. Agai
 
 {% include ref_tetedge_v_h2vol.html %}
 
-It is clear the advantage in this simple compromise between safety and payload: not every balloon needs to be covered. This is just one example of a realistic approach, but there are many ways to pack spheres and protect them from each other. Different packing methods and architecture can simultaneously provide safety systems and structural integrity to an airship. For the time being, I aim to focus on empricial testing of flame-proof systems as I am convinced of the lift potential of such a craft. 
+It is clear the advantage in this simple compromise between safety and payload: not every balloon needs to be covered. This is just one example of a realistic approach, but there are many ways to pack spheres and protect them from each other. Different packing methods and architecture can simultaneously provide safety systems and structural integrity to an airship. Roughly speaking, a tetrahedral module with a robust flame protection system (6cm foam)  will lift to 8km and have be 13m in height from base to point. I am estimating the pointy tip can be cut down by ~1m, so 12m. Generally, it seems that a the tetrahedron will not surpass a height of 20m for increasing payloads upwards of 6 metric tons! On that front a critical question is how much hydrogen is safe per module? 
+
+
+Next I will begin to focus on empricial testing of flame-proof systems, as I am convinced of the lift potential of such a craft. 
 
 ## Payload Analysis round 1
 9/25/2019
