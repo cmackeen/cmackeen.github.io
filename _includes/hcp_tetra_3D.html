@@ -54,6 +54,8 @@
             // Creates, angles, distances and targets the camera
             var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 2, 2), scene);
         
+            camera.wheelPrecision = 100; 
+        
             // This positions the camera
             camera.setPosition(new BABYLON.Vector3(0, 0, -13));
         
