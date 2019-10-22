@@ -7,7 +7,7 @@ permalink: /
 ---
 
 
-<button class="btn js-toggle-dark-mode">~Nightmode~</button>
+<button class="btn js-toggle-dark-mode">~toggle Night/Day~</button>
 
 <script>
 const toggleDarkMode = document.querySelector('.js-toggle-dark-mode')
@@ -15,7 +15,7 @@ const cssFile = document.querySelector('[rel="stylesheet"]')
 const originalCssRef = cssFile.getAttribute('href')
 const darkModeCssRef = originalCssRef.replace('just-the-docs.css', 'dark-mode-preview.css')
 
-
+cssFile.setAttribute('href',  darkModeCssRef)
 
 addEvent(toggleDarkMode, 'click', function(){
   if (cssFile.getAttribute('href') === originalCssRef) {
