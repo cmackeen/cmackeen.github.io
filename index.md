@@ -6,7 +6,28 @@ description: "Cameron Mackeen -- online "
 permalink: /
 ---
 
+
+<button class="btn js-toggle-dark-mode">~Nightmode~</button>
+
+<script>
+const toggleDarkMode = document.querySelector('.js-toggle-dark-mode')
+const cssFile = document.querySelector('[rel="stylesheet"]')
+const originalCssRef = cssFile.getAttribute('href')
+const darkModeCssRef = originalCssRef.replace('just-the-docs.css', 'dark-mode-preview.css')
+
+addEvent(toggleDarkMode, 'click', function(){
+  if (cssFile.getAttribute('href') === originalCssRef) {
+    cssFile.setAttribute('href',  originalCssRef)
+  } else {
+    cssFile.setAttribute('href', darkModeCssRef)
+  }
+})
+</script>
 # Welcome
+
+<span class="fs-8">
+[Supratmos quicklink](/docs/projects/supratmos.md){: .btn .btn-purple }
+</span> 
 
 ![](/assets/cam_precipice.jpg)
 
