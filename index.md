@@ -4,6 +4,7 @@ title: Home
 nav_order: 1
 description: "Cameron Mackeen -- online "
 permalink: /
+color_scheme: "dark"
 ---
 
 
@@ -12,7 +13,6 @@ permalink: /
 <script>
 const toggleDarkMode = document.querySelector('.js-toggle-dark-mode')
 const cssFile = document.querySelector('[rel="stylesheet"]')
-cssFile.setAttribute('href', darkModeCssRef)
 const originalCssRef = cssFile.getAttribute('href')
 const darkModeCssRef = originalCssRef.replace('just-the-docs.css', 'dark-mode-preview.css')
 
