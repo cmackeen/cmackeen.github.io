@@ -12,6 +12,7 @@ permalink: /
 <script>
 const toggleDarkMode = document.querySelector('.js-toggle-dark-mode')
 const cssFile = document.querySelector('[rel="stylesheet"]')
+cssFile.setAttribute('href', darkModeCssRef)
 const originalCssRef = cssFile.getAttribute('href')
 const darkModeCssRef = originalCssRef.replace('just-the-docs.css', 'dark-mode-preview.css')
 
@@ -25,11 +26,13 @@ addEvent(toggleDarkMode, 'click', function(){
 </script>
 # Welcome
 
-<span class="fs-8">
-[Supratmos quicklink](/docs/projects/supratmos.md){: .btn .btn-purple }
-</span> 
 
 ![](/assets/cam_precipice.jpg)
+
+
+<span class="fs-3">
+[Supratmos quicklink](/docs/projects/supratmos.md){: .btn .btn-purple }
+</span> 
 
  I make the best use of my time by following curiousity and focusing on
 projects of passion. This website serves as my interface with the world to
