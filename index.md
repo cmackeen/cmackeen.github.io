@@ -15,14 +15,13 @@ const cssFile = document.querySelector('[rel="stylesheet"]')
 const originalCssRef = cssFile.getAttribute('href')
 const darkModeCssRef = originalCssRef.replace('just-the-docs.css', 'dark-mode-preview.css')
 
-cssFile.setAttribute('href', darkModeCssRef)
 
 
 addEvent(toggleDarkMode, 'click', function(){
   if (cssFile.getAttribute('href') === originalCssRef) {
-    cssFile.setAttribute('href',  originalCssRef)
+    cssFile.setAttribute('href',  darkModeCssRef)
   } else {
-    cssFile.setAttribute('href', darkModeCssRef)
+    cssFile.setAttribute('href', originalCssRef)
   }
 })
 </script>
