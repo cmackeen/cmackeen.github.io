@@ -30,7 +30,7 @@ addEvent(toggleDarkMode, 'click', function(){
 
 ![](/assets/cam_precipice.jpg)
 
-*quick links*:
+*quick links*: &nbsp; &nbsp;
 [Supratmos](/docs/projects/supratmos.md){: .btn .btn-purple .mr-2 }
 [Résumé](/assets/cam_mackeen_v3_resume.pdf){: .btn .btn-blue .mr-2}
 [Papers](/docs/projects/academic.md){: .btn .btn-blue .mr-2}
