@@ -48,10 +48,9 @@ sparks thoughts worth sharing, please email me at cammackeen@gmail.com.
 
 {: .fs-6 .fw-300 }
 
-Here is my [resume](/assets/cam_mackeen_v3_resume.pdf)
-
-
-
+Here is my    <span class="fs-3">
+[resume](//assets/cam_mackeen_v3_resume.pdf){: .btn .btn-purple }
+</span> 
 
 
 
