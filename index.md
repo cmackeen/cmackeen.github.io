@@ -33,7 +33,7 @@ addEvent(toggleDarkMode, 'click', function(){
 *quick links*:
 [Supratmos](/docs/projects/supratmos.md){: .btn .btn-purple .mr-2 }
 [Résumé](/assets/cam_mackeen_v3_resume.pdf){: .btn .btn-blue .mr-2}
-[Papers](/docs/academic.md){: .btn .btn-blue .mr-2}
+[Papers](/docs/projects/academic.md){: .btn .btn-blue .mr-2}
 
 
 
