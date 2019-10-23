@@ -30,10 +30,13 @@ addEvent(toggleDarkMode, 'click', function(){
 
 ![](/assets/cam_precipice.jpg)
 
+*quick links*:
+[Supratmos](/docs/projects/supratmos.md){: .btn .btn-purple .mr-2 }
+[Résumé](/assets/cam_mackeen_v3_resume.pdf){: .btn .btn-blue .mr-2}
+[Papers](/docs/academic.md){: .btn .btn-blue .mr-2}
 
-<span class="fs-3">
-[Supratmos quicklink](/docs/projects/supratmos.md){: .btn .btn-purple }
-</span> 
+
+
 
  I make the best use of my time by following curiousity and focusing on
 projects of passion. This website serves as my interface with the world to
@@ -49,8 +52,7 @@ sparks thoughts worth sharing, please email me at cammackeen@gmail.com.
 {: .fs-6 .fw-300 }
 
 Here is my    <span class="fs-3">
-[resume](//assets/cam_mackeen_v3_resume.pdf){: .btn .btn-purple }
-</span> 
+
 
 
 
