@@ -1,7 +1,9 @@
 ---
 layout: default
-title: deployments
-
+title: Home
+nav_order: 1
+description: "Cameron Mackeen -- online "
+permalink: /
 ---
 
 
@@ -23,20 +25,38 @@ addEvent(toggleDarkMode, 'click', function(){
   }
 })
 </script>
+# Welcome
 
-With limitations to static jekyll hosting on gitpages (albeit free, which I am grateful for), I looked elsewhere to begin developing live anaylytical web apps and dashboards. This branch into aws web apps with Flask is a familiar one, but now I intend to bake some serious power into a web app when it comes to demonstrating economic viabiltiy of Supratmos Systems solutions. 
 
-My framework loosely looks like this: Dash/Flask app-> Gunicorn ->Heroku all on an EC2 instance for free.
+![](/assets/cam_precipice.jpg)
 
-Getting gunicorn and nginx working  started with a refresher on virtualenv:
-'''
-virtualenv myenv
-cd myenv
-. bin/activate
-'''
+*quick links*: &emsp;&emsp;&emsp;&emsp;
+[Supratmos](/docs/projects/supratmos.md){: .btn .btn-purple .mr-2 }
+[Résumé](/assets/cammackeen_resume.pdf){: .btn .btn-blue .mr-2}
+[Papers](/docs/academic/academic.md){: .btn .btn-blue .mr-2}
 
 
 
-....The path ahead is clear; to address additional traffic and computing needs a Docker image of an app hosted on AWS Fargate container. I am to revisit this link
 
-https://www.chrisvoncsefalvay.com/2019/08/28/deploying-dash-on-amazon-ecs/
+ I make the best use of my time by following curiousity and focusing on
+projects of passion. This website serves as my interface with the world to
+share content related to my growth and experience, and if *anything* here
+sparks thoughts worth sharing, please email me at cammackeen@gmail.com. 
+
+
+
+# Thanks for visiting 
+
+{: .fs-9 }
+
+{: .fs-6 .fw-300 }
+
+
+
+
+
+### Active interests:
+
+Artificial Intelligence, Autonomy (human and otherwise), Gardening, Machine Learning, Treking, Physics,  Heliostats, Dirigibles and Aerostatics,
+Programming, Music Production and Recording,  Bitcoin, Decentralization, Sailing, Wireless Communication, Shortwave Radio, the Internet 
+
