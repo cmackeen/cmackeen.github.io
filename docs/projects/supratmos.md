@@ -139,3 +139,5 @@ current commercial rate for grade-A helium is .76 ¢/L , and that is not taking 
 [source](https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/mcs-2019-heliu.pdf) 
 
 So I think the world needs to turn to non-helium aerostats.
+
+(hidden link)[http://ec2-3-84-53-116.compute-1.amazonaws.com]
