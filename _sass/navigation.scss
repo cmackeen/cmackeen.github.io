@@ -23,6 +23,7 @@
 .navigation-list {
   margin-top: $sp-4;
   margin-bottom: 0;
+  margin-left: 10%;
   list-style: none;
 
   @include mq(md) {
