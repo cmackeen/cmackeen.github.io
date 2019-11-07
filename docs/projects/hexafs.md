@@ -47,6 +47,8 @@ And here is the distribution of standard deviation in the post-edge area
 
 {% include post_edge_std_mu.html %}
 
+I can see several modes in the distribution of mean aborption, and I think it would be helpful to render a new interactive periodic table plot where the hover includes information of each element's mean aborption in the EXAFS region. Along with that, I will include mena standard deviation.
+
 ## A first look at historical EXAFS
 5/12/2019
 {: .fw-300 }
