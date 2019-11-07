@@ -30,7 +30,7 @@ Iodide Perovskite Precursor Solutions (2017)](/assets/acs.chemmater.6b04917.pdf)
 
 
 
-[No difference in local structure aboat a Zn dopant for congruent and stoichiometric LiNbO<sub>3</sub>  (2016)](assets/PhysRevB.94.014101.pdf)
+[No difference in local structure aboat a Zn dopant for congruent and stoichiometric LiNbO<sub>3</sub>  (2016)](/assets/PhysRevB.94.014101.pdf)
 
 [PhD thesis (2019)](/assets/thesis_public.pdf)
 
@@ -38,7 +38,7 @@ Iodide Perovskite Precursor Solutions (2017)](/assets/acs.chemmater.6b04917.pdf)
 ![Lederle Research Tower](/assets/lgrt.jpg) 
 
 
-##Backstory 
+## Backstory 
 
 As an undergraduate at University of Massachusetts, Amherst , I joined
 Professor Andrea Pocar's lab to contribute research to project EXO ([SLAC EXO
@@ -64,13 +64,13 @@ on a tabletop experiment with a small team.
 
 Directly from UMass, I continued onto a PhD program at University of
 California, Santa Cruz. As a result of my small lab experience mentioned above,
-I looked for another research opportunity and found my spot in [Bud Bridges lab](http://exafs.ucsc.edu/). 
+I looked for another research opportunity and found my spot in [Bud Bridges' lab](http://exafs.ucsc.edu/). 
 
 Over the past 30 years, Bud Bridges specialized in studying local crystal
 structure by analyzing the extended x-ray absorption fine-struture region in
 the spectra. While I was in school with Bud as my advisor, I studied various
 complex materials --mostly inorganic. The following overview is my PhD defense
-abstarct:
+abstract:
 
 To understand and predict phenomena in solid materials, we often look at how
 the lattice structure brings about such an effect. In considering the general
@@ -92,7 +92,7 @@ system and their relation to observations.
         
 
 Lithium niobate has piqued interest in different eras as a non-linear optical
-material. In the 60's and 70s, the remarkable photo-refractive behavior was
+material. In the 60's and 70's, the remarkable photo-refractive behavior was
 explored as a way of writing holographic memory. There lacks a general model
 for how the photorefraction is affected by different species of dopants, but
 there are proposed charge compensating substitution schema. We aim to judge
