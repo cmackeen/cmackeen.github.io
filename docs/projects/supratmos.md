@@ -28,7 +28,9 @@ addEvent(toggleDarkMode, 'click', function(){
 
 Supratmos Systems is the working title for a dirigible project I am pumping
 away at. Succinct goal: develop technology for sustainable
-autonomous dirigibles. 
+autonomous dirigibles.
+
+<div style='position:relative; padding-bottom:calc(56.25% + 44px)'><iframe src='https://gfycat.com/ifr/WickedDifferentDeer' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
 
 ## Module Engineering and Geometry of HCP Tetrahedron
 10/18/2019
