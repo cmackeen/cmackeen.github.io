@@ -13,9 +13,9 @@ University of California, Santa Cruz in March 2019.
 
 ---
 ## Personal
-
-![Camandre MacKeen](/assets/cam_pro.jpg)
-
+<p align="center">
+<img src="/assets/campro_circ.png" width="324" >
+</p>
 
 I grew up in the northeast and have continuously sought to create something new
 and different. Whether that is a song, or a program, or a device, or this
@@ -40,11 +40,11 @@ Diverse experience
 {: .text-delta }
 
 Over my academic career I have undertaken a variety of projects, a consequence
-of my curiousity. I enjoy working passionately on a project of
-interest, and am result driven. I particularly enjoy programming projects; I
+of my curiousity. I enjoy cycles of working passionately on a project of
+interest, and I am result driven. I particularly enjoy programming projects; I
 have been building tools and analysis frameworks to promote quantitative
 research while cutting out brute force tedium (a common grad student
-experience). In research, scientists often deal with exceptional or novel
+experience). In research scienctists often deal with exceptional or novel
 systems, so automating analysis of unknown systems is less trivial but
 quite important. 
 
