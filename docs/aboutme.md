@@ -14,7 +14,7 @@ University of California, Santa Cruz in March 2019.
 ---
 ## Personal
 <p align="center">
-<img src="/assets/campro_circ.png" width="324" >
+<img src="/assets/campro_circ.png" width="264" >
 </p>
 
 I grew up in the northeast and have continuously sought to create something new
