@@ -54,7 +54,7 @@ for i in range(len(aa)-2):
 jstext.close()
 ```
 
-...  MORE on it's way ....
+...  MORE on its way ....
 
 ## Bokeh 3D interactive iframe via inline visjs Graph3D
 
