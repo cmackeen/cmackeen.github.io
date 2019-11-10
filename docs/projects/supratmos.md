@@ -37,8 +37,7 @@ autonomous dirigibles.
 {: .fw-300 }
 As a preamble: in the yet-to-be published Payload Analysis round 2, I explore partial filling of balloons at sea level. In the 1st round of analysis my model was based on slight pressurization (*very* slight) of a balloon at mean sea-level (MSL), with constant one-way venting of hydrogen to maintain near-equilibrium pressure; this leads to a constant volume. I explored (but have not shared) what payload vs altitude looks like when you partially fill the baloon, so it expands in volume upon rising. I aim to have expansion until around 9km altitude, and I found this can be done with ~40% initial fill. Moving forward....
 
-What if we did not cover each balloon with a flame-proof system to stymie sympathetic detonation? I first look to hexagonal close-packing and find that packing spherical balloons in a regular tetrahedron  minimizes surface area of our flame-proof system. [Click here](/docs/projects/hcpbabylon.md){: .btn .btn-purple .mr-1 }
-Click here to see simple 3D model. (using babylon-js) .
+What if we did not cover each balloon with a flame-proof system to stymie sympathetic detonation? I first look to hexagonal close-packing and find that packing spherical balloons in a regular tetrahedron  minimizes surface area of our flame-proof system. [Click here](/docs/projects/hcpbabylon) to see simple 3D model (using babylon-js) .
 
 
 
