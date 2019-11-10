@@ -44,7 +44,7 @@ What if we did not cover each balloon with a flame-proof system to stymie sympat
 
 This visual simulation of a module is of great help. I call it a HCP-tetrahedron of 4 balloons, or HCP-tet4 for short. Well, was my intuition correct: do payload calculations agree? I included a new method under my 'dirgible' class that calculates the payload for n balloons surrounded by a regular tetrahedron of flame-proof material. The following plot shows payload vs total volume of hydrogen, and also includes the fact that the balloons are slack at MSL. That is, the flame proof framework is large and allows expansion of inner balloons until alt=8km. 
 
-{% include pload_hcp_v_4bal.html %}
+{% include pload_hcp_v_4bal.html max-width="40%" %}
 
 For reference, I have a chart showing tetrahedra height for volume of H₂. Again keep in mind that the balloons are only filled 40% at MSL. 
 
