@@ -36,7 +36,9 @@ addEvent(toggleDarkMode, 'click', function(){
 [Papers](/docs/academic/academic.md){: .btn .btn-blue .mr-2}
 
 
+*in-the-works* : Employing pyspark to parallelize transformations on big XAS data.
 
+# Thanks for visiting 
 
  I make the best use of my time by following curiousity and focusing on
 projects of passion. This website serves as my interface with the world to
@@ -45,7 +47,6 @@ sparks thoughts worth sharing, please email me at cammackeen@gmail.com.
 
 
 
-# Thanks for visiting 
 
 {: .fs-9 }
 
