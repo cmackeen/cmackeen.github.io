@@ -27,14 +27,12 @@ addEvent(toggleDarkMode, 'click', function(){
 </script>
 # Welcome
 
-
-![](/assets/cam_precipice.jpg)
-
 *quick links*: &emsp;&emsp;&emsp;&emsp;
 [Supratmos](/docs/projects/supratmos.md){: .btn .btn-purple .mr-2 }
 [Résumé](/assets/cammackeen_resume.pdf){: .btn .btn-blue .mr-2}
 [Papers](/docs/academic/academic.md){: .btn .btn-blue .mr-2}
 
+![](/assets/cam_precipice.jpg)
 
 *in-the-works* : Employing pyspark to parallelize transformations on big XAS data.
 

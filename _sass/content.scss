@@ -56,9 +56,9 @@
 
     li {
       &::before {
-        position: absolute;
-        margin-left: 9.5em;
-        color: $grey-dk-000;
+        position: relative;
+        margin-left: 1em;
+        color: 'black';
         content: "•";
       }
     }
