@@ -39,19 +39,21 @@ The Bridges lab in the Physics department at University California, Santa Cruz s
 
 This post is under construction, but I wanted to share and test a proof-of-concept. I have developed a pipeline for processing XAS (EXAFS) data that runs in pyspark. While I have been using a smaller XAS dataset, I wanted the ETL pipeline to be ready and equipped for streaming XAS data at SSRL (or other labs). The ETL pipeline must be refined, but it does the following:
 
-..+Reads aggregated mu vs energy database
-..+trims to post-edge region
-..+zeroes energy, subtracts average mu
-..+fits slow moving background with spline (needs work)
-..+interpolates data, and subtracts spline function
-..+puts all XAS data on 800 pt grid
-..+calculates MCFF from XAS spectogram (saves MCFF dataframe)
-..+Using MCFF of each scan, applies DBSCAN on each edge
-..+DBSCAN leaves us with autogroups of like MCFF spectra
-..+Attatch grouping labels back to original EXAFS data
-..+Plot EXAFS data with autogroup labels
++ Reads aggregated mu vs energy absorption spectra DB
++ Trims to post-edge region
++ Zeroes energy, subtracts average mu
++ Fits slow moving background with spline (needs work)
++ Interpolates data, and subtracts spline function
++ Resamples interpolated XAS data on 800 pt grid
++ Calculates MCFF from XAS spectogram (saves MCFF dataframe)
++ Using MCFF of each scan, Applies DBSCAN on each edge.
++ DBSCAN leaves us with autogroups of like MCFF spectra
++ Attatch grouping labels back to original EXAFS data
++ Plot EXAFS data with autogroup labels
 
-I have only autogrouped Iron and Zinc on a subset of HEXAFS database, but the app can be seen below.
+I have only autogrouped Iron and Zinc on a subset of HEXAFS database, but the app can be seen below. Clicking it will bring to app's page.
+
+[![app link](/assets/hexafs_autog_thumbnail.jpg)](http://ec2-52-90-91-168.compute-1.amazonaws.com:8080/)
 [App link](http://ec2-52-90-91-168.compute-1.amazonaws.com:8080/)
 
 Two items that will improve upon iteration are the spline bkg fitting, and the DBSCAN parameter optimization. I am excited to delve into Spark and realize ETL benefits of parallelized computing. Much has been learned and will be posted in Lessons Learned, and more work is waiting!
