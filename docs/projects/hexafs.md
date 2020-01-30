@@ -37,7 +37,9 @@ The Bridges lab in the Physics department at University California, Santa Cruz s
 1/28/2020
 {: .fw-300 }
 
-This post is under construction, but I wanted to share and test a proof-of-concept. I have developed a pipeline for processing XAS (EXAFS) data that runs in pyspark. While I have been using a smaller XAS dataset, I wanted the ETL pipeline to be ready and equipped for streaming XAS data at SSRL (or other labs). The ETL pipeline must be refined, but it does the following:
+This post is under construction, but I wanted to share and test a proof-of-concept. My goal in this application is to develop a scalable framework that can categorize XAS scans without labels (unsupervised), with the intent of deploying it to the beam line computers. This will serve as a part of the foundation to smart materials research at SLAC using historical data.
+
+I have developed a pipeline for processing XAS (EXAFS) data that runs in pyspark. While I have been using a smaller XAS dataset, I wanted the ETL pipeline to be ready and equipped for streaming XAS data at SSRL (or other labs). The ETL pipeline must be refined, but it does the following:
 
 + Reads aggregated mu vs energy absorption spectra DB
 + Trims to post-edge region
@@ -51,12 +53,12 @@ This post is under construction, but I wanted to share and test a proof-of-conce
 + Attatch grouping labels back to original EXAFS data
 + Plot EXAFS data with autogroup labels
 
-I have only autogrouped Iron and Zinc on a subset of HEXAFS database, but the app can be seen below. Clicking it will bring to app's page.
+I have only autogrouped Iron and Zinc on a subset of HEXAFS database, but the app can be seen below. Clicking it will bring you to the app's page.
 
 [![app link](/assets/hexafs_auotg_thumbnail.jpg)](http://ec2-52-90-91-168.compute-1.amazonaws.com:8080/)
 [App link](http://ec2-52-90-91-168.compute-1.amazonaws.com:8080/)
 
-Two items that will improve upon iteration are the spline bkg fitting, and the DBSCAN parameter optimization. I am excited to delve into Spark and realize ETL benefits of parallelized computing. Much has been learned and will be posted in Lessons Learned, and more work is waiting!
+Two items that will improve upon iteration are the spline bkg fitting, and the DBSCAN parameter optimization. I am excited to delve into Spark and realize ETL benefits of parallelized computing. Much has been learned and will be posted in Lessons Learned; more work is waiting!
 
 ## Aggregating post-edge absorption in an interactive periodic table
 11/22/2019
