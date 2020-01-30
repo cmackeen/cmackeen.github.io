@@ -53,7 +53,7 @@ This post is under construction, but I wanted to share and test a proof-of-conce
 
 I have only autogrouped Iron and Zinc on a subset of HEXAFS database, but the app can be seen below. Clicking it will bring to app's page.
 
-[![app link](/assets/hexafs_autog_thumbnail.jpg)](http://ec2-52-90-91-168.compute-1.amazonaws.com:8080/)
+[![app link](/assets/hexafs_auotg_thumbnail.jpg)](http://ec2-52-90-91-168.compute-1.amazonaws.com:8080/)
 [App link](http://ec2-52-90-91-168.compute-1.amazonaws.com:8080/)
 
 Two items that will improve upon iteration are the spline bkg fitting, and the DBSCAN parameter optimization. I am excited to delve into Spark and realize ETL benefits of parallelized computing. Much has been learned and will be posted in Lessons Learned, and more work is waiting!
