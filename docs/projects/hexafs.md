@@ -41,7 +41,7 @@ The notebook injected below will go through (in detail) how I use google colab (
 
 ### Preprocess
 
-{%include hexafs_preprocess_vs]2.html %}
+{%include hexafs_preprocess_v2.html %}
 
 ### Clustering
 
