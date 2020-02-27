@@ -1,0 +1,470 @@
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Unsupervised-grouping-application-of-XAS-spectra-using-pyspark,-scikit-learn,-and-dash">Unsupervised grouping application of XAS spectra using pyspark, scikit-learn, and dash<a class="anchor-link" href="#Unsupervised-grouping-application-of-XAS-spectra-using-pyspark,-scikit-learn,-and-dash">&#182;</a></h1><h3 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">&#182;</a></h3><p>My advisor at UC Santa Cruz has decades worth of <em>manually processed</em> XAS data, specifically EXAFS data. As I cranked through material research learning tips from my advisor, I dreamt of the potential of his decades of work reducing data as building a training set for a highly technical analysis. Before I got too far ahead of myself, I wanted to devise a realistic goal that will be part of the foundation for my loftier ideas.</p>
+<p>Enter unsupervised clustering. I thought it would be useful for anyone, from XAS experts to undergraduates, to have an automatic classifier that could detect a "new" spectrum that differs from previously collected data. This detection could relate to a new material, an experimental error, novel behavior, a phase transition, etc.</p>
+<p>To do this with a subset of the Bridges Historical EXAFS Database I wanted to approach with scalability in mind for future use. This is why I opted to delve into using Apache Spark, specifically pyspark. While the use of pyspark for this small dataframe (and loading the normalized mfcc dataframe) is not necessary, it serves as a starting point for scaling, as well as educational for people working on similar frameworks.</p>
+<p>To get pyspark running in a Colab environment
+I am following <a href="https://towardsdatascience.com/pyspark-in-google-colab-6821c2faf41c">https://towardsdatascience.com/pyspark-in-google-colab-6821c2faf41c</a> except for the fact I am wget'ing an archvie spark, see link difference . . .</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>wget http://archive.apache.org/dist/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>--2020-02-26 22:47:48--  http://archive.apache.org/dist/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz
+Resolving archive.apache.org (archive.apache.org)... 163.172.17.199
+Connecting to archive.apache.org (archive.apache.org)|163.172.17.199|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 226027370 (216M) [application/x-gzip]
+Saving to: ‘spark-2.3.3-bin-hadoop2.7.tgz.2’
+
+spark-2.3.3-bin-had 100%[===================&gt;] 215.56M  9.18MB/s    in 27s     
+
+2020-02-26 22:48:16 (8.07 MB/s) - ‘spark-2.3.3-bin-hadoop2.7.tgz.2’ saved [226027370/226027370]
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get java installed</span>
+<span class="o">!</span>apt-get install openjdk-8-jdk-headless -qq &gt; /dev/null
+<span class="o">!</span>tar xvf spark-2.3.3-bin-hadoop2.7.tgz
+<span class="o">!</span>pip install -q findspark
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;JAVA_HOME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/usr/lib/jvm/java-8-openjdk-amd64&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SPARK_HOME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/content/spark-2.3.3-bin-hadoop2.7&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">findspark</span>
+<span class="n">findspark</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="k">import</span> <span class="n">SparkSession</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">master</span><span class="p">(</span><span class="s2">&quot;local[*]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then we load the mini hEXAFS database from my github:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>wget <span class="s2">&quot;http://exafs.ucsc.edu/bridges/data_agg_mini.csv&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.ml.feature</span> <span class="k">import</span> <span class="n">VectorAssembler</span>
+<span class="kn">from</span> <span class="nn">pyspark.ml.regression</span> <span class="k">import</span> <span class="n">LinearRegression</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;data_agg_mini.csv&quot;</span><span class="p">,</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">inferSchema</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="p">,</span><span class="n">parserLib</span><span class="o">=</span><span class="s2">&quot;univocity&quot;</span><span class="p">,</span><span class="n">multiLine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>general dataframe overview, make sure multiline worked for e,mu arrays</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code># This is formatted as code</code></pre>
+<p>now strip all the "\n's" from the array</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">ele_selector</span><span class="o">=</span><span class="s2">&quot;Fe&quot;</span>
+<span class="n">df</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">na</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;5&quot;</span><span class="p">])</span>
+
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="n">regexp_replace</span><span class="p">(</span><span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;[</span><span class="se">\n</span><span class="s1">\[\]]&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">))</span>
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="n">regexp_replace</span><span class="p">(</span><span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;[</span><span class="se">\n</span><span class="s1">\[\]]&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">))</span>
+<span class="n">df2</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;5&quot;</span><span class="p">,</span> <span class="n">split</span><span class="p">(</span><span class="s2">&quot;5&quot;</span><span class="p">,</span> <span class="s2">&quot;\s&quot;</span><span class="p">))</span>
+<span class="n">df2</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;6&quot;</span><span class="p">,</span> <span class="n">split</span><span class="p">(</span><span class="s2">&quot;6&quot;</span><span class="p">,</span> <span class="s2">&quot;\s&quot;</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="cleaning-begins">cleaning begins<a class="anchor-link" href="#cleaning-begins">&#182;</a></h2><p>We start with cutting to region of interest for each spectra, and casting the string array as an array of floats, which we can operate on</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.column</span> <span class="k">import</span> <span class="n">_to_java_column</span><span class="p">,</span> <span class="n">_to_seq</span><span class="p">,</span> <span class="n">Column</span>
+<span class="kn">from</span> <span class="nn">pyspark</span> <span class="k">import</span> <span class="n">SparkContext</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">udf</span><span class="p">,</span> <span class="n">col</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="k">import</span> <span class="n">ArrayType</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">,</span><span class="n">IntegerType</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">array</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#cast string array as an array of floats</span>
+<span class="n">df2</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;5&quot;</span><span class="p">,</span> <span class="n">df2</span><span class="p">[</span><span class="s2">&quot;5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="s1">&#39;array&lt;float&gt;&#39;</span><span class="p">))</span>
+<span class="n">df2</span><span class="o">=</span><span class="n">df2</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;6&quot;</span><span class="p">,</span> <span class="n">df2</span><span class="p">[</span><span class="s2">&quot;6&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="s1">&#39;array&lt;float&gt;&#39;</span><span class="p">))</span>
+
+<span class="c1">#useful for checking the lengths match between e,mu after processing</span>
+<span class="n">slen</span> <span class="o">=</span> <span class="n">udf</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">IntegerType</span><span class="p">())</span>
+
+<span class="c1"># Removes &#39;none&#39; entries in lists of e, mu</span>
+<span class="n">nonone</span> <span class="o">=</span> <span class="n">udf</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">s</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">],</span> <span class="s1">&#39;array&lt;float&gt;&#39;</span><span class="p">)</span>
+
+<span class="c1"># Cuts out the pre-edge region</span>
+<span class="k">def</span> <span class="nf">edgecutter</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span>
+    <span class="n">cl</span><span class="o">=</span><span class="n">diff</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">diff</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">cl</span> <span class="o">+</span> <span class="mi">50</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff</span><span class="p">):</span>
+      <span class="n">cl</span><span class="o">=</span><span class="n">diff</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">diff</span><span class="p">))</span><span class="o">+</span><span class="mi">50</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">cl</span><span class="o">=</span><span class="n">diff</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">diff</span><span class="p">))</span>
+
+  <span class="k">except</span><span class="p">:</span>
+    <span class="n">cl</span><span class="o">=</span><span class="mi">0</span>
+  <span class="k">return</span> <span class="n">r</span><span class="p">[</span><span class="n">cl</span><span class="p">:]</span>
+
+<span class="c1"># apply functinos to arrays in e,mu columns</span>
+<span class="n">adf</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;5&quot;</span><span class="p">,</span> <span class="n">nonone</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="s2">&quot;5&quot;</span><span class="p">]))</span>
+<span class="n">adf</span> <span class="o">=</span> <span class="n">adf</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;6&quot;</span><span class="p">,</span> <span class="n">nonone</span><span class="p">(</span><span class="n">adf</span><span class="p">[</span><span class="s2">&quot;6&quot;</span><span class="p">]))</span>
+<span class="n">adf</span> <span class="o">=</span> <span class="n">adf</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;ecnt&quot;</span><span class="p">,</span> <span class="n">slen</span><span class="p">(</span><span class="n">adf</span><span class="p">[</span><span class="s2">&quot;5&quot;</span><span class="p">]))</span>
+<span class="n">adf</span> <span class="o">=</span> <span class="n">adf</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;mucnt&quot;</span><span class="p">,</span> <span class="n">slen</span><span class="p">(</span><span class="n">adf</span><span class="p">[</span><span class="s2">&quot;6&quot;</span><span class="p">]))</span>
+
+<span class="c1"># Check mu and e are still the same length</span>
+<span class="n">bdf</span> <span class="o">=</span> <span class="n">adf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">adf</span><span class="p">[</span><span class="s2">&quot;mucnt&quot;</span><span class="p">]</span><span class="o">==</span><span class="n">adf</span><span class="p">[</span><span class="s2">&quot;ecnt&quot;</span><span class="p">])</span>
+
+<span class="c1"># Init and apply pyspark udf for cutting of pre-edge</span>
+<span class="n">edgecut_udf</span><span class="o">=</span><span class="n">udf</span><span class="p">(</span><span class="n">edgecutter</span><span class="p">,</span> <span class="s1">&#39;array&lt;float&gt;&#39;</span><span class="p">)</span>
+<span class="n">cdf</span><span class="o">=</span><span class="n">bdf</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;ecut&quot;</span><span class="p">,</span> <span class="n">edgecut_udf</span><span class="p">(</span><span class="n">bdf</span><span class="p">[</span><span class="s2">&quot;6&quot;</span><span class="p">],</span><span class="n">bdf</span><span class="p">[</span><span class="s2">&quot;5&quot;</span><span class="p">]))</span>
+<span class="n">cdf</span><span class="o">=</span><span class="n">cdf</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;mucut&quot;</span><span class="p">,</span> <span class="n">edgecut_udf</span><span class="p">(</span><span class="n">cdf</span><span class="p">[</span><span class="s2">&quot;6&quot;</span><span class="p">],</span><span class="n">cdf</span><span class="p">[</span><span class="s2">&quot;6&quot;</span><span class="p">]))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we zero the energy and subtract the mean of mu</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">pandas_udf</span><span class="p">,</span><span class="n">PandasUDFType</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># This is the df-&gt;RDD-&gt;df wash cycle</span>
+<span class="c1"># Washes off the scalar udf stench ...</span>
+<span class="c1"># this issue needs to be adressed as PySpark development improves VectorUDF functionality</span>
+
+<span class="n">rdd</span> <span class="o">=</span> <span class="n">cdf</span><span class="o">.</span><span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="n">zdf</span><span class="o">=</span><span class="n">rdd</span><span class="o">.</span><span class="n">toDF</span><span class="p">()</span>
+
+<span class="nd">@pandas_udf</span><span class="p">(</span><span class="s1">&#39;array&lt;float&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">min_off</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="nd">@pandas_udf</span><span class="p">(</span><span class="s1">&#39;array&lt;float&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mean_off</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="n">zdf1</span><span class="o">=</span><span class="n">zdf</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;e_zset&quot;</span><span class="p">,</span> <span class="n">min_off</span><span class="p">(</span><span class="n">zdf</span><span class="p">[</span><span class="s2">&quot;_14&quot;</span><span class="p">]))</span>
+<span class="n">zdf2</span><span class="o">=</span><span class="n">zdf1</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;mu_zset&quot;</span><span class="p">,</span> <span class="n">mean_off</span><span class="p">(</span><span class="n">zdf1</span><span class="p">[</span><span class="s2">&quot;_15&quot;</span><span class="p">]))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Fit background spline, and subtract it from resampled spectra. 
+We save the normalized data to be used in the Dash app plot of categorized, normalized EXAFS scans</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Trying to work spline fitting into a pysparkable udf, or maybe pandas udf. 2 arrays in, returns just m</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">splrep</span><span class="p">,</span> <span class="n">splev</span><span class="p">,</span> <span class="n">LSQUnivariateSpline</span><span class="p">,</span> <span class="n">UnivariateSpline</span><span class="p">,</span> <span class="n">interp1d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="n">find_peaks</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">udf</span><span class="p">,</span> <span class="n">col</span>
+
+<span class="c1"># set number of points in resample of all spectra</span>
+<span class="n">pt_res</span><span class="o">=</span> <span class="mi">800</span>
+
+<span class="k">def</span> <span class="nf">spliner</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+  
+  <span class="n">R</span><span class="o">=.</span><span class="mi">5</span> <span class="c1"># 0.5 ang. is a good example of our low-cut for R-space background to avoid in EXAFS </span>
+  <span class="n">num_kts</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">R</span><span class="o">/</span><span class="p">(</span><span class="mf">3.14159265359</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="mf">0.512393</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>  <span class="c1">#define number of knots based similar approach as xray-larch </span>
+  <span class="c1">#num_kts=9  ### possible alternative to hard-code number of spline knots</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Could be used to define peaks that would bound the background spline fit  </span>
+    <span class="c1">#peaks, _=find_peaks(v,prominence=.033)</span>
+    <span class="c1">#pk_pts=[v[i] for i in peaks]</span>
+    <span class="c1">#xpk_pts=[u[i] for i in peaks]</span>
+
+    <span class="c1"># Define knot array for bkg</span>
+    <span class="n">maxe</span><span class="o">=</span><span class="n">u</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">kts</span><span class="o">=</span><span class="p">[(</span><span class="n">maxe</span><span class="o">/</span><span class="n">num_kts</span><span class="p">)</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">num_kts</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">u</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="c1"># Slow oscillating background with &lt;15 splines</span>
+    <span class="n">bkg</span><span class="o">=</span><span class="n">LSQUnivariateSpline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">u</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">v</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">kts</span><span class="p">)</span>
+    <span class="n">pt_res</span><span class="o">=</span> <span class="mi">800</span>
+
+    <span class="c1"># Interpolation function of mu,e for resampling</span>
+    <span class="n">inter</span><span class="o">=</span><span class="n">interp1d</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">u</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">grid</span><span class="o">=</span><span class="p">[(</span><span class="n">maxe</span><span class="o">/</span><span class="n">pt_res</span><span class="p">)</span><span class="o">*</span><span class="n">nn</span> <span class="k">for</span> <span class="n">nn</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pt_res</span><span class="p">)]</span>
+
+    <span class="c1"># Uncomment and return subsline to see the bkg-spline that is taken off</span>
+    <span class="c1">#subspline=[float(j-bkg(i)) for i,j in zip(u,v)]</span>
+
+    <span class="c1"># Result of subtracting slow-moving bkg from resampled mu</span>
+    <span class="n">bkg_grid</span><span class="o">=</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">inter</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-</span><span class="n">bkg</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">]</span>
+
+    <span class="n">output</span><span class="o">=</span><span class="n">bkg_grid</span>
+
+  <span class="k">except</span><span class="p">:</span>
+    <span class="n">output</span><span class="o">=</span><span class="p">[</span><span class="mf">22.</span><span class="p">,</span><span class="mf">33.</span><span class="p">]</span>
+    <span class="c1"># a dummy output for when knot-definer fails</span>
+
+   
+  <span class="k">return</span> <span class="n">output</span>
+
+<span class="c1"># init and apply above defined UDF</span>
+<span class="n">uspliner</span><span class="o">=</span><span class="n">udf</span><span class="p">(</span><span class="n">spliner</span><span class="p">,</span><span class="s1">&#39;array&lt;float&gt;&#39;</span><span class="p">)</span>
+<span class="n">ndf</span><span class="o">=</span><span class="n">zdf2</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;norm_e&quot;</span><span class="p">,</span> <span class="n">uspliner</span><span class="p">(</span><span class="n">zdf2</span><span class="p">[</span><span class="s2">&quot;mu_zset&quot;</span><span class="p">],</span> <span class="n">zdf2</span><span class="p">[</span><span class="s2">&quot;e_zset&quot;</span><span class="p">]))</span>
+
+<span class="c1">#Filter out the failures</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">size</span>
+<span class="n">ndf1</span><span class="o">=</span><span class="n">ndf</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="s1">&#39;norm_e&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Convert to pandas dataframe and save, zip, download</span>
+<span class="n">ndf_out</span><span class="o">=</span><span class="n">ndf</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
+<span class="n">ndf_out</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;data_agg_mini_cleanest.csv&quot;</span><span class="p">)</span>
+<span class="o">!</span>zip data_agg_mini_cleanest.zip data_agg_mini_cleanest.csv
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># May fail to download, as sleeptime is used to wait for zip file to be recognized in colab drive</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">google.colab</span> <span class="k">import</span> <span class="n">files</span>
+<span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;data_agg_mini_cleanest.zip&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, we can use the process the normalized (and homogenously sampled) XAS spectra. In clustering regions of audio signals, <a href="https://en.wikipedia.org/wiki/Mel-frequency_cepstrum">MFCC</a> arrays are useful. In following established techniques, I found this transformation very useful in conjunction with DBSCAN.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[0]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="k">import</span> <span class="n">udf</span><span class="p">,</span> <span class="n">col</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="k">import</span> <span class="n">ArrayType</span><span class="p">,</span><span class="n">FloatType</span>
+<span class="kn">import</span> <span class="nn">librosa</span>
+<span class="kn">from</span> <span class="nn">librosa</span> <span class="k">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1">#########</span>
+<span class="c1"># Constants tweaked to work</span>
+<span class="n">pt_res</span><span class="o">=</span><span class="mi">800</span>
+<span class="n">nfft</span><span class="o">=</span><span class="mi">180</span>
+<span class="n">hopl</span><span class="o">=</span><span class="n">nfft</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">sri</span><span class="o">=</span><span class="mi">800</span>
+<span class="c1">##########</span>
+
+<span class="k">def</span> <span class="nf">mffcer</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="c1"># reshape and weight mu by e (like in k*chi(k)), then transform list -&gt; array</span>
+    <span class="n">bb</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+    <span class="n">bb</span><span class="o">=</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">bb</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">))]</span>
+    <span class="n">cc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
+
+    <span class="c1"># Librosa package contains wealth of audio signal processing functions</span>
+    <span class="c1"># We use it to stft -&gt; mel spectrogram -&gt; mfcc</span>
+    <span class="n">spec</span><span class="o">=</span><span class="n">librosa</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cc</span><span class="p">,</span><span class="n">n_fft</span><span class="o">=</span><span class="n">nfft</span><span class="p">)</span>
+    <span class="n">melspec</span><span class="o">=</span><span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">melspectrogram</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cc</span><span class="p">,</span><span class="n">S</span><span class="o">=</span><span class="n">spec</span><span class="p">)</span>
+    <span class="n">mffc_ex</span><span class="o">=</span><span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">mfcc</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">cc</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sri</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="n">melspec</span><span class="p">,</span> <span class="n">n_mfcc</span><span class="o">=</span><span class="mi">50000</span><span class="p">)</span>
+
+    <span class="c1"># Unpack the 2D array into 1D array, then assure they are floats</span>
+    <span class="n">flatmf</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">mffc_ex</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">flatmf2</span><span class="o">=</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flatmf</span><span class="p">]</span>
+    <span class="n">output</span><span class="o">=</span><span class="n">flatmf2</span>
+
+  <span class="k">except</span><span class="p">:</span>
+    <span class="n">output</span><span class="o">=</span><span class="p">[[</span><span class="mf">22.</span><span class="p">,</span><span class="mf">33.</span><span class="p">]]</span>
+
+   
+  <span class="k">return</span> <span class="n">output</span>
+
+<span class="c1"># Init and apply MFCC UDF</span>
+<span class="n">spectralize</span><span class="o">=</span><span class="n">udf</span><span class="p">(</span><span class="n">mffcer</span><span class="p">,</span> <span class="n">ArrayType</span><span class="p">(</span><span class="n">FloatType</span><span class="p">()))</span>
+<span class="n">mfcc_df</span><span class="o">=</span><span class="n">ndf1</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;mfcc&quot;</span><span class="p">,</span> <span class="n">spectralize</span><span class="p">(</span><span class="n">ndf1</span><span class="p">[</span><span class="s2">&quot;norm_e&quot;</span><span class="p">]))</span>
+
+<span class="c1">#mfcc_df.select(&quot;mfcc&quot;).show()</span>
+<span class="c1"># Reduce dataframe to the only needed columns</span>
+<span class="n">df</span><span class="o">=</span><span class="n">mfcc_df</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">mfcc_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span>  <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;_2&#39;</span><span class="p">,</span><span class="s1">&#39;_5&#39;</span><span class="p">,</span><span class="s1">&#39;mfcc&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">}])</span>
+
+<span class="c1">## Saving, zipping and downloading the stuff</span>
+<span class="n">df_out</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
+<span class="n">df_out</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;mfcc_edge_2col_gmini.csv&quot;</span><span class="p">)</span>
+<span class="o">!</span>zip mfcc_gmini.zip mfcc_edge_2col_gmini.csv
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">google.colab</span> <span class="k">import</span> <span class="n">files</span>
+<span class="o">!</span>ls -lht
+<span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;mfcc_gmini.zip&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+ 
+

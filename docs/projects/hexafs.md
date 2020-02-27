@@ -33,6 +33,20 @@ The Bridges lab in the Physics department at University California, Santa Cruz s
 {:toc}
 
 ---
+
+## Employing pyspark, scikit-learn and audio signal processing to cluster unevenly sample EXAFS spectra
+2/25/2020
+{: .fw-300 }
+The notebook injected below will go through (in detail) how I use google colab (with it's free GPU power) to clean, normalize, resample, transform and cluster EXAFS spectra from various elements. There are two notebooks: one for preprocessing XAS data, and another for clustering, saving, and plotting cluster results.
+
+### Preprocess
+
+{%include hexafs_preprocess_vs]2.html %}
+
+### Clustering
+
+{%include ML_dbscan_mfcc.html %}
+
 ## Unsupervised grouping of like-spectra of a select edge
 1/28/2020
 {: .fw-300 }
