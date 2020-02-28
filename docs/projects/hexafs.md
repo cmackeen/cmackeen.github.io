@@ -33,25 +33,37 @@ The Bridges lab in the Physics department at University California, Santa Cruz s
 {:toc}
 
 ---
-
-## Employing pyspark, scikit-learn and audio signal processing to cluster unevenly sample EXAFS spectra
-2/25/2020
+## Preprocessing of data for unsupervised grouping of like-spectra at a select edge
+2/28/2020
 {: .fw-300 }
-The notebook injected below will go through (in detail) how I use google colab (with it's free GPU power) to clean, normalize, resample, transform and cluster EXAFS spectra from various elements. There are two notebooks: one for preprocessing XAS data, and another for clustering, saving, and plotting cluster results.
 
-### Preprocess
+The goal of this application and initiative is to build a foundation for grouping XAS that can scale. For this reason I am employing Spark via pyspark. The grouping will be done without specifying number of clusters, as I do not assume to know the number of unique spectra; furthermore, I would like to have the potential for clustering streaming spectra. In this post I will go through the approach to preprocessing XAS data, which was inspired by AI approaches to categorizing audio signals. 
+First, let us get a look at some raw XAS data:
 
-{%include hexafs_preprocess_v2.html %}
+{%include abs_raw.html %}
 
-### Clustering
+We can first start with subtracting the starting energy to zero the x-axis, and also subtracting the mean of mu. We get:
 
-{%include ML_dbscan_mfcc.html %}
+{%include norm1_abs.html %}
 
-## Unsupervised grouping of like-spectra of a select edge
+Now we will focus in on just the post-edge region to fit our bacground splines. We will follow rough procedure from the [xray-larch](https://xraypy.github.io/xraylarch/) project. In EXAFS we want to subtract the slowly-oscillating background. Since I am going to have to also resample the spectra to match in number of data points, I will also use a continuous function interpolation of the data. Once we fit the background splines and resample we are left with the following:
+
+{%include norm2_abs.html %}
+
+Finally, after reading some (guides)[https://medium.com/heuristics/audio-signal-feature-extraction-and-clustering-935319d2225] and [literature](https://arxiv.org/pdf/1803.08276.pdf), I found the [Mel-frequency cepstral coefficients (MFCC)](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum) will be useful features for clustering spectra. The image below is an the MFCC heatmap of the above normalized and background removed data:
+
+
+!(/assets/mfcc_specshow_n-233.png)
+
+
+The next post will go over a quantitative analysis of tuning the DBSCAN clustering alogrithm for our application, but I also plan on optimizing the background remvoal and MFCC parameters. 
+
+
+## Unsupervised grouping of like-spectra of a select edge: Overview and application
 1/28/2020
 {: .fw-300 }
 
-This post is under construction, but I wanted to share and test a proof-of-concept. My goal in this application is to develop a scalable framework that can categorize XAS scans without labels (unsupervised), with the intent of deploying it to the beam line computers. This will serve as a part of the foundation to smart materials research at SLAC using historical data.
+TMy goal in this application is to develop a scalable framework that can categorize XAS scans without labels (unsupervised), with the intent of deploying it to the beam line computers. This will serve as a part of the foundation to smart materials research at SLAC using historical data.
 
 I have developed a pipeline for processing XAS (EXAFS) data that runs in pyspark. While I have been using a smaller XAS dataset, I wanted the ETL pipeline to be ready and equipped for streaming XAS data at SSRL (or other labs). The ETL pipeline must be refined, but it does the following:
 
