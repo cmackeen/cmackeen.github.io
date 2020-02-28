@@ -18,13 +18,11 @@ As I look to share succinct content on my Projects page, I would also think it h
 ## Employing pyspark, scikit-learn and audio signal processing to cluster unevenly sample EXAFS spectra
 2/25/2020
 {: .fw-300 }
-The notebook injected below will go through (in detail) how I use google colab (with it's free GPU power) to clean, normalize, resample, transform and cluster EXAFS spectra from various elements. There are two notebooks: one for preprocessing XAS data, and another for clustering, saving, and plotting cluster results.
 
-### Preprocess
 
 {%include hexafs_preprocess_v2.html %}
 
-### Clustering
+ Clustering:
 
 {%include ML_dbscan_mfcc.html %}
 

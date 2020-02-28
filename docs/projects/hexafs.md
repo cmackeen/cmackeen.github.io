@@ -50,10 +50,10 @@ Now we will focus in on just the post-edge region to fit our bacground splines. 
 
 {%include norm2_abs.html %}
 
-Finally, after reading some (guides)[https://medium.com/heuristics/audio-signal-feature-extraction-and-clustering-935319d2225] and [literature](https://arxiv.org/pdf/1803.08276.pdf), I found the [Mel-frequency cepstral coefficients (MFCC)](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum) will be useful features for clustering spectra. The image below is an the MFCC heatmap of the above normalized and background removed data:
+Finally, after reading some [guides](https://medium.com/heuristics/audio-signal-feature-extraction-and-clustering-935319d2225) and [literature](https://arxiv.org/pdf/1803.08276.pdf), I found the [Mel-frequency cepstral coefficients (MFCC)](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum) will be useful features for clustering spectra. The image below is an the MFCC heatmap of the above normalized and background removed data:
 
 
-!(/assets/mfcc_specshow_n-233.png)
+![](/assets/mfcc_specshow_n-233.png)
 
 
 The next post will go over a quantitative analysis of tuning the DBSCAN clustering alogrithm for our application, but I also plan on optimizing the background remvoal and MFCC parameters. 
