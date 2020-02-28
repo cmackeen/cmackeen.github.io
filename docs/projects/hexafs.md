@@ -56,7 +56,9 @@ Finally, after reading some [guides](https://medium.com/heuristics/audio-signal-
 ![](/assets/mfcc_specshow_n-233.png)
 
 
-The next post will go over a quantitative analysis of tuning the DBSCAN clustering alogrithm for our application, but I also plan on optimizing the background remvoal and MFCC parameters. 
+The next post will go over a quantitative tuning the DBSCAN
+clustering alogrithm for our application, but I also plan on optimizing the
+background removal and MFCC parameters, so as to ensure robust data processing even in anomalous scenarios. 
 
 
 ## Unsupervised grouping of like-spectra of a select edge: Overview and application
