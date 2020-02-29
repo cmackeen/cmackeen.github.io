@@ -55,6 +55,7 @@ Finally, after reading some [guides](https://medium.com/heuristics/audio-signal-
 
 ![](/assets/mfcc_specshow_n-233.png)
 
+The python notebooks I used in google colab can be found here: [preproccess](/assets/hexafs_preprocess_v2.ipynb) and [dbscan](/assets/ML_dbscan_mfcc.ipynb)
 
 The next post will go over a quantitative tuning the DBSCAN
 clustering alogrithm for our application, but I also plan on optimizing the
