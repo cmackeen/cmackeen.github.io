@@ -141,4 +141,7 @@ current commercial rate for grade-A helium is .76 ¢/L , and that is not taking 
 
 So I think the world needs to turn to non-helium aerostats.
 
- [hidden link](http://ec2-3-84-53-116.compute-1.amazonaws.com)
+*Some scientists claim that hydrogen, because it is so plentiful, is the basic building block of the universe. I dispute that. I say there is more stupidity than hydrogen, and that is the basic building block of the universe.*
+- Frank Zappa
+
+ [hidden link](http://ec2-3-84-53-116.aaasaaa-compute-1.amazonaws.com)
