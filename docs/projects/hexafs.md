@@ -84,8 +84,8 @@ I have developed a pipeline for processing XAS (EXAFS) data that runs in pyspark
 
 I have only autogrouped Iron and Zinc on a subset of HEXAFS database, but the app can be seen below. Clicking it will bring you to the app's page.
 
-[![app link](/assets/hexafs_auotg_thumbnail.jpg)](http://ec2-52-90-91-168.compute-1.amazonaws.com:8080/)
-[App link](http://ec2-52-90-91-168.compute-1.amazonaws.com:8080/)
+[![app link](/assets/hexafs_auotg_thumbnail.jpg)](http://ec2-3-88-164-235.compute-1.amazonaws.com:8080/)
+[App link](http://ec2-3-88-164-235.compute-1.amazonaws.com:8080/)
 
 Two items that will improve upon iteration are the spline bkg fitting, and the DBSCAN parameter optimization. I am excited to delve into Spark and realize ETL benefits of parallelized computing. Much has been learned and will be posted in Lessons Learned; more work is waiting!
 
