@@ -31,11 +31,12 @@ addEvent(toggleDarkMode, 'click', function(){
 [hEXAFS](/docs/projects/hexafs.md){: .btn .btn-purple .mr-2 }
 [Résumé](/assets/cammackeen_resume.pdf){: .btn .btn-blue .mr-2}
 [Papers](/docs/academic/academic.md){: .btn .btn-blue .mr-2}
+[Pilemma](/docs/projects/pilemma.md){: .btn .btn-purple .mr-2 }
 [Supratmos](/docs/projects/supratmos.md){: .btn .btn-purple .mr-2 }
 
 ![](/assets/cam_precipice.jpg)
 
-*in-the-works* : Employing pyspark to parallelize transformations on big XAS data.
+*in-the-works* : Exploit bot learning from simple game simulation of MakerDAO's Dai
 
 # Thanks for visiting 
 
