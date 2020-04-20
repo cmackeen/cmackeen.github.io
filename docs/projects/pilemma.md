@@ -24,11 +24,11 @@ addEvent(toggleDarkMode, 'click', function(){
 
 {% include lib/mathjax.html %}
 
-# BitcoinJ 
+# Pilemma 
 
 {: .no_toc } 
 
-
+Pilemma is a deep reinforcement learning project with the goal of AI powered penetration testing. Specifically, Pilemma will strive to audit incentive structures for their potential weaknesses, and certify robust protocols for user safety and in turn adoption.  
 
 I have been generally interested in blockchain technology like bitcoin for five years now. Although I have done my share of armchair research into bitcoin and decentralized systems, I still lack technical understanding. With free time, a mentor, and a desire to contribute to open source code, I have started to work on bitcoinj. I will let the [BitcoinJ website](https://bitcoinj.github.io/) explain the details; from what I understand BitcoinJ is a java library that underly many applications that interact with the bitcoin blockchain. Continued development on BitcoinJ will generate more possibilities for what a blockchain app can do.
 
