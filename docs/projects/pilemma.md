@@ -24,11 +24,24 @@ addEvent(toggleDarkMode, 'click', function(){
 
 {% include lib/mathjax.html %}
 
-# Pilemma 
 ![](/assets/pilemma_logo_small.jpg)
 {: .no_toc } 
 
 Pilemma is a deep reinforcement learning project with the goal of AI powered penetration testing. Specifically, Pilemma will strive to audit incentive structures for their potential weaknesses, and certify robust protocols for user safety and in turn adoption.  
+
+# Prototypical Application
+
+The current (and first) incentive structure being tested is the MakerDAO
+multi-collateral debt protocol, Dai. During a market drop of ethereum's price
+in mid march 2020, many debt positions were liquidated and collateral ethereum
+sold to auction keepers. If this does not make sense, the protocol simplified
+section below will help. Due to network congestion and auction conditions, some
+ETH collateral was sold (AKA flipped) for very little. 
+
+There are  lessons learned here, some specific and others more general. The
+future of decentralized finance (DeFi) depends on more rigorous and
+quantitative testing. This is where I will apply AI and Reinforcement Learning
+to answer tough questions: how robust is your system to bad actors?
 
 # Past work
 
