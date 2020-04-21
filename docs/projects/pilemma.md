@@ -28,9 +28,10 @@ addEvent(toggleDarkMode, 'click', function(){
 {: .no_toc } 
 
 Pilemma is a deep reinforcement learning project designed to exploit
-decentralized incentive systems. Specifically, Pilemma will strive to audit
+decentralized incentive systems. Specifically, Pilemma's objective is to audit
 incentive structures for their potential weaknesses, and certify robust
 protocols for user safety and in turn adoption.  
+
 
 # First Application
 
@@ -40,21 +41,20 @@ in mid march 2020, many debt positions were liquidated and collateral ethereum
 sold to "auction keepers". Due to network congestion and auction conditions, some
 ETH collateral was sold (AKA "flipped") at auction with nearly zero bids. 
 
-There are  lessons learned here, some specific and others more general. The
-future of decentralized finance (DeFi) depends on more rigorous and
-quantitative testing. This is where I will apply AI and Reinforcement Learning
-to answer tough questions: how robust is your system to bad actors?
+This event is another example of exploits in decentral protocols. The future of
+decentralized finance (DeFi) depends on more rigorous and quantitative testing.
+This is where I will apply AI and Reinforcement Learning to answer tough
+questions: how robust is your system to bad actors?
 
-## MakerDAO Dai Collateral Debt Positions simplified.
+## MakerDAO Dai Collateral Debt Positions -> simplified.
 
-Okay, so that whole section title is a lot but the rules at play are kinda
-simple. While the system behavior is quite complex (and possibly unstable), my
+While the system behavior is quite complex (and possibly unstable), my
 job is to create a reward structure and game environment where an agent can
 optimize a policy.
 
 To open a Collateral Debt Position (CDP) we lock ethereum in a contract (ETH)
 and receive Dai, MakerDAO`s stablecoin. This is analogous to "minting" Dai, and
-now to get the collateral ETH (in the "urn") back you must return the Dai you
+now to get the collateral ETH back (from the "urn") you must return the Dai you
 minted. While your CDP is open, interest accruing on the debt (the "stability
 fee") will be deducted from your collateral ETH.  If at anytime your CDP "urn"
 of ETH falls below 150% in value (Dai conversion based on some oracle) compared
@@ -67,14 +67,14 @@ means that "auction keepers" will bid on how *little* ETH they are willing to
 receive for returning the outstanding Dai debt on that "vault". Each bid goes
 down by increments of 3%, and all are welcome to participate. 
 
-Now if you`re sharp (I know you are!), then you may have reached the idea that
-you could open barely liquid CDP`s and bid on your own "urn". Well this would
-work if there was not a liquidation fee of 13%.  Why is a 13% enough to stop
-you? Well, that is why we are here! 
+Now if you're sharp , then you may have reached the idea that you could open
+barely liquid CDP's and bid on your own "urn" once you fall below the
+liquidation ratio. Well this would work if there was not a liquidation fee of
+13%.  Why is a 13% enough to stop you from this auction-grind exploit? Well,
+that is why we are here! 
 
- In the future, the entire system along with multi-agent
-environments can be deployed; but one step at a time
-
+ In the future, the entire decentral protocol can be run with multi-agent
+environments in search of exploits.
 ## Past work in blockchain tech
 
 ### BitcoinJ
