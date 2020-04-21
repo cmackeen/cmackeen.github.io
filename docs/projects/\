@@ -45,35 +45,7 @@ future of decentralized finance (DeFi) depends on more rigorous and
 quantitative testing. This is where I will apply AI and Reinforcement Learning
 to answer tough questions: how robust is your system to bad actors?
 
-## MakerDAO Dai Collateral Debt Positions simplified.
 
-Okay, so that whole section title is a lot but the rules at play are kinda
-simple. While the system behavior is quite complex (and possibly unstable), my
-job is to create a reward structure and game environment where an agent can
-optimize a policy.
-
-To open a Collateral Debt Position (CDP) we lock ethereum in a contract (ETH)
-and receive Dai, MakerDAO`s stablecoin. This is analogous to "minting" Dai, and
-now to get the collateral ETH (in the "urn") back you must return the Dai you
-minted. While your CDP is open, interest accruing on the debt (the "stability
-fee") will be deducted from your collateral ETH.  If at anytime your CDP "urn"
-of ETH falls below 150% in value (Dai conversion based on some oracle) compared
-to the Dai minted, you hit the "liquidation ratio". This triggers events which
-in turn lead to the liquidation of some or *all* of your "urn".  
-
-
-The way this auction (we will talk about the "dent" portion in particular)
-means that "auction keepers" will bid on how *little* ETH they are willing to
-receive for returning the outstanding Dai debt on that "vault". Each bid goes
-down by increments of 3%, and all are welcome to participate. 
-
-Now if you`re sharp (I know you are!), then you may have reached the idea that
-you could open barely liquid CDP`s and bid on your own "urn". Well this would
-work if there was not a liquidation fee of 13%.  Why is a 13% enough to stop
-you? Well, that is why we are here! 
-
- In the future, the entire system along with multi-agent
-environments can be deployed; but one step at a time
 
 ## Past work in blockchain tech
 
