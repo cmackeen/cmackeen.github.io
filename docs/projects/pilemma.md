@@ -61,6 +61,7 @@ of ETH falls below 150% in value (Dai conversion based on some oracle) compared
 to the Dai minted, you hit the "liquidation ratio". This triggers events which
 in turn lead to the liquidation of some or *all* of your "urn".  
 
+![Dai CDP minting and auction cycle](/assets/DaiCDP.svg)
 
 The way this auction (we will talk about the "dent" portion in particular)
 means that "auction keepers" will bid on how *little* ETH they are willing to
