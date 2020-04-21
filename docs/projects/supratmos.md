@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Supratmos Systems
-nav_exclude: false
+nav_exclude: true
 ---
 <button class="btn js-toggle-dark-mode">~Nightmode~</button>
 
