@@ -30,7 +30,7 @@ addEvent(toggleDarkMode, 'click', function(){
 Pilemma is a deep reinforcement learning project designed to exploit
 decentralized incentive systems. Specifically, Pilemma's objective is to audit
 incentive structures for their potential weaknesses, and certify robust
-protocols for user safety and in turn adoption.  
+protocols for user safety and in turn, safe adoption.  
 
 
 # First Application
@@ -46,6 +46,8 @@ decentralized finance (DeFi) depends on more rigorous and quantitative testing.
 This is where I will apply AI and Reinforcement Learning to answer tough
 questions: how robust is your system to bad actors?
 
+![Dai CDP minting and auction cycle](/assets/makerdao.svg)
+
 ## MakerDAO Dai Collateral Debt Positions -> simplified.
 
 While the system behavior is quite complex (and possibly unstable), my
@@ -56,8 +58,8 @@ To open a Collateral Debt Position (CDP) we lock ethereum in a contract (ETH)
 and receive Dai, MakerDAO`s stablecoin. This is analogous to "minting" Dai, and
 now to get the collateral ETH back (from the "urn") you must return the Dai you
 minted. While your CDP is open, interest accruing on the debt (the "stability
-fee") will be deducted from your collateral ETH.  If at anytime your CDP "urn"
-of ETH falls below 150% in value (Dai conversion based on some oracle) compared
+fee") will added to the amount of Dai it takes to retrieve your collateral.  If at anytime your CDP "urn"
+of ETH falls below 150% in value (Dai conversion based on an oracle) compared
 to the Dai minted, you hit the "liquidation ratio". This triggers events which
 in turn lead to the liquidation of some or *all* of your "urn".  
 
@@ -65,17 +67,25 @@ in turn lead to the liquidation of some or *all* of your "urn".
 
 The way this auction (we will talk about the "dent" portion in particular)
 means that "auction keepers" will bid on how *little* ETH they are willing to
-receive for returning the outstanding Dai debt on that "vault". Each bid goes
+receive for returning the a portion of the outstanding Dai debt on that urn. Each bid goes
 down by increments of 3%, and all are welcome to participate. 
 
 Now if you're sharp , then you may have reached the idea that you could open
 barely liquid CDP's and bid on your own "urn" once you fall below the
-liquidation ratio. Well this would work if there was not a liquidation fee of
+liquidation ratio with an amount you consider fair value (and no more). This auction grinding strategy is outlined ![in this document](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf). Well this would work if there was not a liquidation fee of
 13%.  Why is a 13% enough to stop you from this auction-grind exploit? Well,
 that is why we are here! 
 
- In the future, the entire decentral protocol can be run with multi-agent
+ In the future, an entire decentral protocol or smart contract can be run with multi-agent
 environments in search of exploits.
+## Reinforcement learning in context
+
+There are many intriguing and complex algorithms rapidly evolving in reinforcement learning, but I choose to focus on policy based learning. It is also important to note that the problem formulation determines both the applicability of RL and the success. In general, delayed gratification markov decision processes are opportune systems to employ RL.
+
+
+The initial attack plan consists of a single agent environment with 5 action choices: buy ETH (with Dai), sell ETH, mint Dai, close CDP, and skip. The most simplified environmental observations include only the open, high, low, close of 1 minute ETHUSDT data. My protoype learning environment is an OpenAI gym format and works with PPO2 stable baselines policy learning. I am currently re-factoring into an rllib MultiAgentEnv to include adversarial probabilistic bidding to more closely simulate auction processes. The project's code can be found in my [github here.](https://github.com/cmackeen/pilemma)
+
+
 ## Past work in blockchain tech
 
 ### BitcoinJ
@@ -85,7 +95,7 @@ years now. Although I have done my share of armchair research into bitcoin and
 decentralized systems, I still lack technical understanding. With free time, a
 mentor, and a desire to contribute to open source code, I have started to work
 on bitcoinj. I will let the [BitcoinJ website](https://bitcoinj.github.io/)
-explain the details; from what I understand BitcoinJ is a java library that
+explain the details; BitcoinJ is a java library that
 underly many applications that interact with the bitcoin blockchain. Continued
 development on BitcoinJ will generate more possibilities for what a blockchain
 app can do.
