@@ -63,7 +63,10 @@ of ETH falls below 150% in value (Dai conversion based on an oracle) compared
 to the Dai minted, you hit the "liquidation ratio". This triggers events which
 in turn lead to the liquidation of some or *all* of your "urn".  
 
-![Dai CDP minting and auction cycle](/assets/DaiCDP.svg)
+<p align="center">
+  <img  src="/assets/DaiCDP.svg">
+</p>
+
 
 The way this auction (we will talk about the "dent" portion in particular)
 means that "auction keepers" will bid on how *little* ETH they are willing to
@@ -72,7 +75,7 @@ down by increments of 3%, and all are welcome to participate.
 
 Now if you're sharp , then you may have reached the idea that you could open
 barely liquid CDP's and bid on your own "urn" once you fall below the
-liquidation ratio with an amount you consider fair value (and no more). This auction grinding strategy is outlined ![in this document](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf). Well this would work if there was not a liquidation fee of
+liquidation ratio with an amount you consider fair value (and no more). This auction grinding strategy is outlined [in this document](https://github.com/livnev/auction-grinding/blob/master/grinding.pdf). Well this would work if there was not a liquidation fee of
 13%.  Why is a 13% enough to stop you from this auction-grind exploit? Well,
 that is why we are here! 
 
