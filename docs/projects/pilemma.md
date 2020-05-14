@@ -88,6 +88,15 @@ There are many intriguing and complex algorithms rapidly evolving in reinforceme
 
 The initial attack plan consists of a single agent environment with 5 action choices: buy ETH (with Dai), sell ETH, mint Dai, close CDP, and skip. The most simplified environmental observations include only the open, high, low, close of 1 minute ETHUSDT data. My protoype learning environment is an OpenAI gym format and works with PPO2 stable baselines policy learning. I am currently re-factoring into an rllib MultiAgentEnv to include adversarial probabilistic bidding to more closely simulate auction processes. The project's code can be found in my [github here.](https://github.com/cmackeen/pilemma)
 
+## What an Agent does
+In this simple example I trained an agent on a 1000 minute time series of raw financial data. If the agent sees the same observations over and over again, it can learn to maximize reward (delta portfolio) while using minimum actions. The plot below is an example episode fromt trained agent.
+
+{% include candlesplin.html %}
+
+But if we want it to learn well on the fly, we must augment the agent observation data. The following is an overview of the RL architecture for a single agent learning to exploit a smart contract environment. As subgraphs and GraphQL gain popularity, a standardized (and simplified) set of contract observations and actions will emerge, all attached to simple human readable queries.
+
+![Single Agent RL Workflow](/assets/pilemma_over.png)
+
 
 ## Past work in blockchain tech
 
