@@ -93,7 +93,7 @@ In this simple example I trained an agent on a 1000 minute time series of raw fi
 
 {% include candlesplin.html %}
 
-But if we want it to learn well on the fly, we must augment the agent observation data. The following is an overview of the RL architecture for a single agent learning to exploit a smart contract environment. As subgraphs and GraphQL gain popularity, a standardized (and simplified) set of contract observations and actions will emerge, all attached to simple human readable queries.
+But if we want it to learn well on the fly, we must augment the agent observation data. The following is an overview of the RL architecture for a single agent learning to exploit a smart contract environment. As subgraphs ([GraphQL](https://thegraph.com/)) and  analytics tools ([Dune](https://www.duneanalytics.com/)) gain popularity, a standardized (and simplified) set of contract observations and actions will emerge, all attached to simple human readable queries.
 
 ![Single Agent RL Workflow](/assets/pilemma_over.png)
 
