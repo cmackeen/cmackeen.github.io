@@ -28,11 +28,13 @@ addEvent(toggleDarkMode, 'click', function(){
 # Welcome
 
 *quick links*: &emsp;&emsp;&emsp;&emsp;
+[Pilemma](/docs/projects/pilemma.md){: .btn .btn-purple .mr-2 }
+[Supratmos](/docs/projects/supratmos.md){: .btn .btn-purple .mr-2 }
 [hEXAFS](/docs/projects/hexafs.md){: .btn .btn-purple .mr-2 }
 [Résumé](/assets/cammackeen_resume.pdf){: .btn .btn-blue .mr-2}
 [Papers](/docs/academic/academic.md){: .btn .btn-blue .mr-2}
-[Pilemma](/docs/projects/pilemma.md){: .btn .btn-purple .mr-2 }
-[Supratmos](/docs/projects/supratmos.md){: .btn .btn-purple .mr-2 }
+
+
 
 ![](/assets/cam_precipice.jpg)
 
