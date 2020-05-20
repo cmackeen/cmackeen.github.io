@@ -32,6 +32,9 @@ decentralized incentive systems. Specifically, Pilemma's objective is to audit
 incentive structures for their potential weaknesses, and certify robust
 protocols for user safety and in turn, safe adoption.  
 
+# Coming Down the Pipe
+
+Since I am focusing on augmenting the observation (state) space for robot, I am implementing a streaming anomaly detection on transaction data, [see viz here!](http://ec2-54-89-50-233.compute-1.amazonaws.com:8080/)
 
 # First Application
 
@@ -44,7 +47,7 @@ ETH collateral was sold (AKA "flipped") at auction with nearly zero bids.
 This event is another example of exploits in decentral protocols. The future of
 decentralized finance (DeFi) depends on more rigorous and quantitative testing.
 This is where I will apply AI and Reinforcement Learning to answer tough
-questions: how robust is your system to bad actors?
+questions: how robust is your system to bad actors? 
 
 ![Dai CDP minting and auction cycle](/assets/makerdao.svg)
 
