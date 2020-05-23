@@ -34,11 +34,11 @@ protocols for user safety and in turn, safe adoption.
 
 # Agent State Space in Decentralized Ecosystem
 
-Enriching a learning agent's observations is the feature engineering task at hand: what can an agent learn from? We need to learn novel behavior *quicjkly*, so we must feed it the most pertinent information.
+Enriching a learning agent's observations is the feature engineering task at hand: what can an agent learn from? We need to learn novel behavior *quickly*, so we must feed it the most pertinent information.
 
-Since I am focusing on augmenting the observation (state) space for robot, I am implementing a streaming anomaly detection on transaction data, [see viz here!](http://ec2-54-89-50-233.compute-1.amazonaws.com:8080/). This graph employs a [MIDAS](https://towardsdatascience.com/anomaly-detection-in-dynamic-graphs-using-midas-e4f8d0b1db45) anomaly score to filter out negligible background acitivity, saving CPU time and enabling scalability. Aside from MIDAS, the data is brought to you by web3 endpoint [Quicknode](quicknode.io), Web3py, Dash cytoscape, and a streamlined deque-write:gunicorn-reload process. That means the graph is current (last 1 million tx's filtered) and reloaded every 10 minutes, but when you refresh the browser it should not take long to reload unless the data is new. 
+Since I am focusing on augmenting the observation (state) space for robot, I am implementing a streaming anomaly detection on transaction data, [see viz here!](http://ec2-54-89-50-233.compute-1.amazonaws.com:8080/). This graph employs a [MIDAS](https://towardsdatascience.com/anomaly-detection-in-dynamic-graphs-using-midas-e4f8d0b1db45) anomaly score to filter out negligible background acitivity, saving CPU time and enabling scalability. Aside from MIDAS, the data is brought to you by web3 endpoint [Quicknode](quicknode.io), Web3py, Dash Cytoscape, and a streamlined deque-write:gunicorn-reload process. That means the graph is current (last 1 million tx's filtered) and reloaded every 10 minutes, but when you refresh the browser it should not take long to reload unless the data is new. 
 
-The visualisation will help me (and others) understand what's worth my time when it comes to transaction graph features. I do not want to inundate the agent with trnsaction data, but it should be informed when activity between two DeFi exchanges is spiking. 
+The visualisation will help me (and others) understand what's worth the time when it comes to processing transactional graph features. I do not want to inundate the agent with trnsaction data, but it should be informed when activity between two DeFi exchanges is spiking. 
 
 # First Application
 
