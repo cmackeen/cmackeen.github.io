@@ -5,7 +5,7 @@ nav_order: 1
 description: "Cameron Mackeen -- online "
 permalink: /
 ---
-
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
 <button class="btn js-toggle-dark-mode">~toggle Night/Day~</button>
 
