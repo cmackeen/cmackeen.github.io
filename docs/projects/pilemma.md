@@ -27,7 +27,7 @@ addEvent(toggleDarkMode, 'click', function(){
 <picture>
   <source 
     srcset="/assets/pilemma_logo_small_inv.jpg" 
-    media="(prefers-color-scheme: dark)">
+    media="(cssFile.getAttribute('href'): darkModeCssRef)">
   <img src="/assets/pilemma_logo_small.jpg">
 </picture>
 
