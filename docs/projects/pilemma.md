@@ -24,6 +24,13 @@ addEvent(toggleDarkMode, 'click', function(){
 
 {% include lib/mathjax.html %}
 
+<picture>
+  <source 
+    srcset="pilemma_logo_small_inv.jpg" 
+    media="(prefers-color-scheme: dark)">
+  <img src="pilemma_logo_small.jpg">
+</picture>
+
 ![](/assets/pilemma_logo_small.jpg)
 {: .no_toc } 
 
