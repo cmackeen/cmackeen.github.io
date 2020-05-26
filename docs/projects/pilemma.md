@@ -8,6 +8,7 @@ parent: Projects
 
 <script>
 const toggleDarkMode = document.querySelector('.js-toggle-dark-mode')
+const title_pic = "/assets/pilemma_logo_small.jpg"
 const cssFile = document.querySelector('[rel="stylesheet"]')
 const originalCssRef = cssFile.getAttribute('href')
 const darkModeCssRef = originalCssRef.replace('just-the-docs.css', 'dark-mode-preview.css')
@@ -15,6 +16,7 @@ const darkModeCssRef = originalCssRef.replace('just-the-docs.css', 'dark-mode-pr
 addEvent(toggleDarkMode, 'click', function(){
   if (cssFile.getAttribute('href') === originalCssRef) {
     cssFile.setAttribute('href', darkModeCssRef)
+    title_pic = "/assets/pilemma_logo_small_inv.jpg"
   } else {
     cssFile.setAttribute('href', originalCssRef)
   }
@@ -31,7 +33,7 @@ addEvent(toggleDarkMode, 'click', function(){
   <img src="/assets/pilemma_logo_small.jpg">
 </picture>
 
-![](/assets/pilemma_logo_small.jpg)
+![](title_pic)
 {: .no_toc } 
 
 Pilemma is a deep reinforcement learning project designed to exploit
