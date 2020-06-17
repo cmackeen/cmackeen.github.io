@@ -54,8 +54,20 @@ The targets were 1.0 if an address was token contract listed on coingecko.com. O
 
 This project had me concerned of two things: our targets are greatly imbalanced and our technique is a bit new/foreign. With this in mind, I established an intent to favor recall over precision. The tools in this rapidly growing space are accesible and powerful. I am fortunate for the development of the [StellarGraph](https://stellargraph.readthedocs.io/en/stable/) package, as it integrates cutting edge graph neural network algorithms seemlessly with Keras and Tensorflow. To start I compiled my graph with feature nodes and saved it in graphml format --loading this into a stellargraph graph is trivial.
 
-A Grapch CNN can simply be understood from [this overview](https://tkipf.github.io/graph-convolutional-networks/) of a 2016 paper. 
-The way ClusterGCN works is a simplification of a normal 
+A Grapch CNN can simply be understood from [this overview](https://tkipf.github.io/graph-convolutional-networks/) of a 2016 paper. The recursive rule defining the layer sin a GCN is the following:
+
+$$ H^{(l+1)}=f(H^{(l)}, A) = \sigma\left( \hat{D}^{-\frac{1}{2}}\hat{A}\hat{D}^{-\frac{1}{2}}H^{(l)}W^{(l)}\right) \, , $$ 
+
+where $$H^l$$ represents the $$l^{th}$$ hidden layer , $$\hat{A} = A + I
+$$ with $$A$$ as the adjacency matrix, and $$\hat{D} = D + I
+$$ with $$D$$ as the diagonal node degree matrix. The identity matrices are added to include the origin node's features, 
+acting as an effective self-loop. At each layer of depth, the feature dimensions are reduced by the weights, and include normalzied contributions from neighboring nodes.
+
+The ClusterGCN simplifies the GCN in that it limits the neighborhood expansion which can save a great deal of memory (see [the paper](https://arxiv.org/abs/1905.07953)) and below image for clarification. The left is an example of normal GCN neighborhood expansion, while the right limits the contributions to a local cluster.
+
+![](/assets/clustergcn.jpg)
+
+Finally, the class imbalance can be adressed most simply by tinkering with weighted binary cross-entropy. I did not go the route of over/undersampling because doing so is slightly more complicated when it comes to graph data. Plus, it is easier to iterate with the cross entropy weight that resampling subgraph clusters. To 
 
 # Observation Space in Decentralized Finance
 
