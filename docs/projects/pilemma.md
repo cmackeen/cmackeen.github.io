@@ -65,9 +65,38 @@ acting as an effective self-loop. At each layer of depth, the feature dimensions
 
 The ClusterGCN simplifies the GCN in that it limits the neighborhood expansion which can save a great deal of memory (see [the paper](https://arxiv.org/abs/1905.07953)) and below image for clarification. The left is an example of normal GCN neighborhood expansion, while the right limits the contributions to a local cluster.
 
+
 ![](/assets/clustergcn.jpg)
 
-Finally, the class imbalance can be adressed most simply by tinkering with weighted binary cross-entropy. I did not go the route of over/undersampling because doing so is slightly more complicated when it comes to graph data. Plus, it is easier to iterate with the cross entropy weight that resampling subgraph clusters. To 
+Finally, the class imbalance can be adressed most simply by tinkering with weighted binary cross-entropy. I did not go the route of over/undersampling because doing so is slightly more complicated when it comes to graph data. Plus, it is easier to iterate with the cross entropy weight that resampling subgraph clusters. For good measure I also intialized the ouput layer bias to $$log(pos/neg)$$ to reflect the scarcity of 1 classes. 
+
+
+## Results
+
+I trained the Cluster GCN over 400 epochs with a schedule to decay the learning rate. The testing metrics for the model are as follows:
+
+| Metric   |      Value    |
+|----------|:-------------:|
+| Acc      |    0.9593     | 
+| Recall   |    0.9178     |  
+| Precision|    0.1126     | 
+
+
+I did not want the model *too* sensitive to missing the 1 classes (listed tokens). I could tell this was the case when recall was maxed to 0.99. The low precision is not as bad as it seems at first glance. To reconnect with my initial goals, I needed to evaluate the model and see the predictions that were false positives. Indeed, in the FP's I find examples of tokens listed on etherscan but not yet on coingecko. Nearly 10% of the false positives were actually classified tokens but *not* on coingecko, and you can see the table of them [right here](assets/sub_mf.html) with their associated total supplies in descending scarcity. For the other 90% of false positives, I have empirically found that some are addresses used heavily in concert with a token address. 
+
+### So what...
+
+Well, this feature lean and computationally economic procedure has identified 271 unlisted (on coingecko) yet currently active tokens. I strongly believe it can be tuned to predict the tokens that get [added to coingecko](https://www.coingecko.com/en/coins/recently_added) from just a time-independant snapshot of the last 300k ETH transactions. While you think about how you could find ways to abuse the etherscan and coingecko api to find these nascent token contracts *without* this ML overkill, let me segue into the final section.
+
+## Conclusion
+
+This exercise lays solid groundwork on what we can learn from algorithmically massaging the ethereum transaction data. If a node acts, talks, and walks like a coingecko listed token, it may be a coingecko listed token. If not now, then sometime *soon*. 
+
+The next step is integration of coarse grained time dependance. By this I mean use multiple graph snapshots in time to predict something happening in the future. Instead of simple classification of a token being listed or not, we can predict a token's ROI for the upcoming month or week. On this idea I am excited, as I think it will also begin to quantify properties of **ponzi tokens** that are different from organized token growth. 
+
+In the open source and decnetralized community, we all get the privilege to access code and data. Blockchain data can be incredibly rich and powerful but it's what you do with it that sets you apart.
+
+![](/assets/geodevil.svg)
 
 # Observation Space in Decentralized Finance
 
