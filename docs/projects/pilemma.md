@@ -36,15 +36,34 @@ addEvent(toggleDarkMode, 'click', function(){
 Pilemma is a deep reinforcement learning project designed to exploit
 decentralized incentive systems. Specifically, Pilemma's objective is to audit
 incentive structures for their potential weaknesses, and certify robust
-protocols for user safety and in turn, safe adoption.  
+protocols for user safety and in turn, safe adoption. 
+
+# Graph Convolutions: Discovery of Unlisted yet Active Ethereum Tokens
+
+On route to augmenting an RL agent environment, I have found myself rigorously modeling transaction graph data on the ethereum network. Since transaction data is represented well in a graph data structure, I looked to employ a machine learning method that exploits the connected structure without manually building large input tensors and eating memory. My goal was simple: By only looking at a static snapshot of transaction (edges) activity, I wanted to identify addresses (nodes) that were home token contract on the ETH network. I could label nodes by using the [Coingecko API](https://www.coingecko.com/en/api), and train a graph convolutional neural network for binary classification.
+
+## Aggregation Methods
+
+My [website](http://pilemma.com) builds from a constantly updating python dequeu of the previous 300k transactions, and each edge has an anomalous activity index via [pyMIDAS](https://towardsdatascience.com/anomaly-detection-in-dynamic-graphs-using-midas-e4f8d0b1db45) so this our starting point. Since I aimed to have weightless edges and featured nodes, I averaged each node's edges to give a mean node acitivity index. This would be the node's first feature, and the second would be the standard deviation of edge anomalous activity indices. The last set of features will be a vector representing function calls to the contract. 
+
+To extract the JSON dictionary of function calls a contract receives, I needed to pull the contract ABI to decode the transaction bytecode. The ABI simply returns a format in dictionary form of expected function calls that the bytecode would reference when interacting with a contract. Through ~300k transactions, I saw 37 unique Solidity methods (`transfer` was popular). I manually rigged up a custom word2vec implementation that would leave each node with an additional sparse 37 features. If the transaction called no method (simple ETH tx), the entire vector would be 0.0 . 
+
+The targets were 1.0 if an address was token contract listed on coingecko.com. Out of ~70k nodes in this exercise, ~500 were listed on coingecko, which is a great transition into our next topic.
+
+## Cluster GCN and Classification
+
+This project had me concerned of two things: our targets are greatly imbalanced and our technique is a bit new/foreign. With this in mind, I established an intent to favor recall over precision. The tools in this rapidly growing space are accesible and powerful. I am fortunate for the development of the [StellarGraph](https://stellargraph.readthedocs.io/en/stable/) package, as it integrates cutting edge graph neural network algorithms seemlessly with Keras and Tensorflow. To start I compiled my graph with feature nodes and saved it in graphml format --loading this into a stellargraph graph is trivial.
+
+A Grapch CNN can simply be understood from [this overview](https://tkipf.github.io/graph-convolutional-networks/) of a 2016 paper. 
+The way ClusterGCN works is a simplification of a normal 
 
 # Observation Space in Decentralized Finance
 
 Enriching a learning agent's observations is the feature engineering task at hand: what can an agent learn from efficiently? The agent needs to learn novel behavior *quickly*, so we must feed it the most pertinent information.
 
-![Dai CDP minting and auction cycle](/assets/graph.jpg)
+![Ethereum Transaction Graph](/assets/graph.jpg)
 
-Since I am focusing on augmenting the observation (state) space for robot, I am implementing a streaming anomaly detection on transaction data, [see graph here!](http://www.pilemma.com) This graph employs a [MIDAS](https://towardsdatascience.com/anomaly-detection-in-dynamic-graphs-using-midas-e4f8d0b1db45) anomaly score to filter out negligible background acitivity, saving CPU time and enabling scalability. Aside from MIDAS, the data is brought to you by web3 endpoint [Quiknode](https://www.quiknode.io/), Web3py, Dash Cytoscape, and a streamlined deque-write:gunicorn-reload process. That means the graph is current (last 1 million tx's filtered) and reloaded every 10 minutes, but when you refresh the browser it should not take long to reload unless the data is new. 
+Since I am focusing on augmenting the observation (state) space for the robot, I am implementing a streaming anomaly detection on transaction data, [see graph here!](http://www.pilemma.com) This graph employs a [MIDAS](https://towardsdatascience.com/anomaly-detection-in-dynamic-graphs-using-midas-e4f8d0b1db45) anomaly score to filter out negligible background acitivity, saving CPU time and enabling scalability. Aside from MIDAS, the data is brought to you by web3 endpoint [Quiknode](https://www.quiknode.io/), Web3py, Dash Cytoscape, and a streamlined deque-write:gunicorn-reload process. That means the graph is current (last 200k tx's filtered) and reloaded every 10 minutes, but when you refresh the browser it should not take long to reload unless the data is new. 
 
 The visualisation will help me (and others) understand what's worth the time when it comes to processing transactional graph features. I do not want to inundate the agent with transaction data, but it should be informed when activity between two DeFi exchanges is spiking. 
 
