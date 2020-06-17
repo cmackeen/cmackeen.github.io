@@ -36,7 +36,7 @@ addEvent(toggleDarkMode, 'click', function(){
 
 
 
-![](/assets/cam_precipice.jpg)
+![](/assets/camprec.svg)
 
 *in-the-works* : Exploit bot learning from simple game simulation of MakerDAO's Dai
 
