@@ -82,7 +82,7 @@ I trained the Cluster GCN over 400 epochs with a schedule to decay the learning 
 | Precision|    0.1126     | 
 
 
-I did not want the model *too* sensitive to missing the 1 classes (listed tokens). I could tell this was the case when recall was maxed to 0.99. The low precision is not as bad as it seems at first glance. To reconnect with my initial goals, I needed to evaluate the model and see the predictions that were false positives. Indeed, in the FP's I find examples of tokens listed on etherscan but not yet on coingecko. Nearly 10% of the false positives were actually classified tokens but *not* on coingecko, and you can see the table of them [right here](assets/sub_mf.html) with their associated total supplies in descending scarcity. For the other 90% of false positives, I have empirically found that some are addresses used heavily in concert with a token address. 
+I did not want the model *too* sensitive to missing the 1 classes (listed tokens). I could tell this was the case when recall was maxed to 0.99. The low precision is not as bad as it seems at first glance. To reconnect with my initial goals, I needed to evaluate the model and see the predictions that were false positives. Indeed, in the FP's I find examples of tokens listed on etherscan but not yet on coingecko. Nearly 10% of the false positives were actually classified tokens but *not* on coingecko, and you can see the table of them [right here](/assets/sub_mf.html) with their associated total supplies in descending scarcity. For the other 90% of false positives, I have empirically found that some are addresses used heavily in concert with a token address. 
 
 ### So what...
 
@@ -96,7 +96,7 @@ The next step is integration of coarse grained time dependance. By this I mean u
 
 In the open source and decnetralized community, we all get the privilege to access code and data. Blockchain data can be incredibly rich and powerful but it's what you do with it that sets you apart.
 
-![](/assets/geodevil.svg)
+![](/assets/geometricdevil.svg)
 
 # Observation Space in Decentralized Finance
 
