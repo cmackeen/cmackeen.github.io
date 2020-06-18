@@ -40,19 +40,21 @@ protocols for user safety and in turn, safe adoption.
 
 # Graph Convolutions: Discovery of Unlisted yet Active Ethereum Tokens
 
-On route to augmenting an RL agent environment, I have found myself rigorously modeling transaction graph data on the ethereum network. Since transaction data is represented well in a graph data structure, I looked to employ a machine learning method that exploits the connected structure without manually building large input tensors and eating memory. My goal was simple: By only looking at a static snapshot of transaction (edges) activity, I wanted to identify addresses (nodes) that were home token contract on the ETH network. I could label nodes by using the [Coingecko API](https://www.coingecko.com/en/api), and train a graph convolutional neural network for binary classification.
+On route to augmenting an RL agent environment, I have found myself rigorously modeling transaction graph data on the ethereum network. Since transaction data is represented well in graph form, I looked to employ a machine learning method that exploits the connected structure without manually building large input tensors and eating memory. My goal was simple: by only looking at a static snapshot of transaction activity (edges), I wanted to identify addresses (nodes) that were home to token contracts. I could label nodes by using the [Coingecko API](https://www.coingecko.com/en/api), and train a graph convolutional neural network for binary classification.
 
 ## Aggregation Methods
 
-My [website](http://pilemma.com) builds from a constantly updating python dequeu of the previous 300k transactions, and each edge has an anomalous activity index via [pyMIDAS](https://towardsdatascience.com/anomaly-detection-in-dynamic-graphs-using-midas-e4f8d0b1db45) so this our starting point. Since I aimed to have weightless edges and featured nodes, I averaged each node's edges to give a mean node acitivity index. This would be the node's first feature, and the second would be the standard deviation of edge anomalous activity indices. The last set of features will be a vector representing function calls to the contract. 
+My [website](http://pilemma.com) builds from a constantly updating python dequeu of the previous 300k transactions, and each edge has an anomalous activity index via [pyMIDAS](https://towardsdatascience.com/anomaly-detection-in-dynamic-graphs-using-midas-e4f8d0b1db45), so this our starting point for node features. Since I aim to have weightless edges and featured nodes, I average each node's edges to give a mean node acitivity index. This will be the node's first feature, and the second will be the standard deviation of edge anomalous activity indices. 
 
-To extract the JSON dictionary of function calls a contract receives, I needed to pull the contract ABI to decode the transaction bytecode. The ABI simply returns a format in dictionary form of expected function calls that the bytecode would reference when interacting with a contract. Through ~300k transactions, I saw 37 unique Solidity methods (`transfer` was popular). I manually rigged up a custom word2vec implementation that would leave each node with an additional sparse 37 features. If the transaction called no method (simple ETH tx), the entire vector would be 0.0 . 
+![](/assets/edge_avg_node.svg)
 
-The targets were 1.0 if an address was token contract listed on coingecko.com. Out of ~70k nodes in this exercise, ~500 were listed on coingecko, which is a great transition into our next topic.
+The last set of features will be a vector representing function calls to the contract. To extract the JSON dictionary of function calls a contract receives, I pull the contract ABI to decode the transaction input bytecode. The ABI simply returns a JSON format dictionary of expected function calls that the bytecode would reference when executing. Through ~300k transactions, I saw 37 unique Solidity methods (`transfer` was popular). I manually rigged up a custom word2vec implementation that leaves each node with an additional sparse 37 features. If the transaction called no method (simple ETH tx), the entire vector is an array of 0.0 . 
+
+The targets are `1` if an address was a token contract listed on coingecko.com, and `0` if not. Out of ~70k nodes in this exercise, ~500 are listed on coingecko, which is a great transition into our next topic on class imbalance.
 
 ## Cluster GCN and Classification
 
-This project had me concerned of two things: our targets are greatly imbalanced and our technique is a bit new/foreign. With this in mind, I established an intent to favor recall over precision. The tools in this rapidly growing space are accesible and powerful. I am fortunate for the development of the [StellarGraph](https://stellargraph.readthedocs.io/en/stable/) package, as it integrates cutting edge graph neural network algorithms seemlessly with Keras and Tensorflow. To start I compiled my graph with feature nodes and saved it in graphml format --loading this into a stellargraph graph is trivial.
+This project had me concerned of two things: our targets are greatly imbalanced and our technique is a bit new/foreign. With this in mind, I intended to favor recall over precision. The tools in this rapidly growing space are accesible and powerful. I am fortunate for the development of the [StellarGraph](https://stellargraph.readthedocs.io/en/stable/) package, as it integrates cutting edge graph neural network algorithms seemlessly with Keras and Tensorflow. To start I compiled my graph with feature nodes and saved it in graphml format --loading this into a stellargraph graph is trivial.
 
 A Grapch CNN can simply be understood from [this overview](https://tkipf.github.io/graph-convolutional-networks/) of a 2016 paper. The recursive rule defining the layer sin a GCN is the following:
 
@@ -61,14 +63,14 @@ $$ H^{(l+1)}=f(H^{(l)}, A) = \sigma\left( \hat{D}^{-\frac{1}{2}}\hat{A}\hat{D}^{
 where $$H^l$$ represents the $$l^{th}$$ hidden layer , $$\hat{A} = A + I
 $$ with $$A$$ as the adjacency matrix, and $$\hat{D} = D + I
 $$ with $$D$$ as the diagonal node degree matrix. The identity matrices are added to include the origin node's features, 
-acting as an effective self-loop. At each layer of depth, the feature dimensions are reduced by the weights, and include normalzied contributions from neighboring nodes.
+acting as an effective self-loop. At each layer of depth, the feature dimensions are reduced by the weights $$\gamma \times \gamma^{'}$$ dimensions, and normalzied contributions from neighboring nodes are included.
 
-The ClusterGCN simplifies the GCN in that it limits the neighborhood expansion which can save a great deal of memory (see [the paper](https://arxiv.org/abs/1905.07953)) and below image for clarification. The left is an example of normal GCN neighborhood expansion, while the right limits the contributions to a local cluster.
+The ClusterGCN simplifies the GCN in that it limits the neighborhood expansion which can save a great deal of memory, see [the paper](https://arxiv.org/abs/1905.07953) and below image for clarification. The left is an example of normal GCN neighborhood expansion, while the right limits the contributions to a local cluster.
 
 
 ![](/assets/clustergcn.jpg)
 
-Finally, the class imbalance can be adressed most simply by tinkering with weighted binary cross-entropy. I did not go the route of over/undersampling because doing so is slightly more complicated when it comes to graph data. Plus, it is easier to iterate with the cross entropy weight that resampling subgraph clusters. For good measure I also intialized the ouput layer bias to $$log(pos/neg)$$ to reflect the scarcity of 1 classes. 
+Finally, the class imbalance can be adressed most simply by tinkering with weighted binary cross-entropy. I did not go the route of over/undersampling because it is slightly more complicated when it comes to graph data. Plus, it is easier to iterate with the cross entropy weight than resampling subgraph clusters. For good measure I also intialized the ouput layer bias to $$log(pos/neg)$$ to reflect the scarcity of `1` classes. 
 
 
 ## Results
@@ -82,17 +84,17 @@ I trained the Cluster GCN over 400 epochs with a schedule to decay the learning 
 | Precision|    0.1126     | 
 
 
-I did not want the model *too* sensitive to missing the 1 classes (listed tokens). I could tell this was the case when recall was maxed to 0.99. The low precision is not as bad as it seems at first glance. To reconnect with my initial goals, I needed to evaluate the model and see the predictions that were false positives. Indeed, in the FP's I find examples of tokens listed on etherscan but not yet on coingecko. Nearly 10% of the false positives were actually classified tokens but *not* on coingecko, and you can see the table of them [right here](/assets/sub_mf.html) with their associated total supplies in descending scarcity. For the other 90% of false positives, I have empirically found that some are addresses used heavily in concert with a token address. 
+I did not want the model *too* sensitive to missing the `1` classes (listed tokens). I could tell this was the case when recall was maxed to 0.99. The low precision is not as bad as it seems at first glance. To reconnect with my initial goals, I evaluated the model and explored the predictions that were false positives. Indeed, in the FP's I find examples of tokens listed on etherscan but not yet on coingecko. Nearly 10% of the false positives were actually classified tokens but *not* on coingecko, and you can see the table of them [right here](/assets/sub_mf.html) with their associated total supplies in descending scarcity. For the other 90% of false positives, I have empirically found that some are addresses used heavily in concert with a token address. 
 
 ### So what...
 
-Well, this feature lean and computationally economic procedure has identified 271 unlisted (on coingecko) yet currently active tokens. I strongly believe it can be tuned to predict the tokens that get [added to coingecko](https://www.coingecko.com/en/coins/recently_added) from just a time-independant snapshot of the last 300k ETH transactions. While you think about how you could find ways to abuse the etherscan and coingecko api to find these nascent token contracts *without* this ML overkill, let me segue into the final section.
+Well, this feature-lean and computationally economic procedure has identified 271 unlisted (on coingecko) yet currently active tokens. I strongly believe it can be tuned to predict the tokens that get [added to coingecko](https://www.coingecko.com/en/coins/recently_added) from just a time-independant snapshot of the last 300k ETH transactions. While there exist ways to abuse the etherscan and coingecko api limits to find nascent token contracts *without* my ML overkill, let's talk about next steps for applying GCN to ethereum transaction data.
 
 ## Conclusion
 
 This exercise lays solid groundwork on what we can learn from algorithmically massaging the ethereum transaction data. If a node acts, talks, and walks like a coingecko listed token, it may be a coingecko listed token. If not now, then sometime *soon*. 
 
-The next step is integration of coarse grained time dependance. By this I mean use multiple graph snapshots in time to predict something happening in the future. Instead of simple classification of a token being listed or not, we can predict a token's ROI for the upcoming month or week. On this idea I am excited, as I think it will also begin to quantify properties of **ponzi tokens** that are different from organized token growth. 
+Next comes the integration of coarse grained time dependance. By this I mean using multiple graph snapshots (over time) to predict future token characteristics. Instead of simple classification of a token being listed or not, we can predict a token's ROI for the upcoming month or week. On this idea I am excited, as I think it will also begin to quantify properties of **ponzi tokens** that are different from organic token growth. 
 
 In the open source and decnetralized community, we all get the privilege to access code and data. Blockchain data can be incredibly rich and powerful but it's what you do with it that sets you apart.
 
