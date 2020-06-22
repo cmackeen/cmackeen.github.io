@@ -42,6 +42,10 @@ protocols for user safety and in turn, safe adoption.
 
 On route to augmenting an RL agent environment, I have found myself rigorously modeling transaction graph data on the ethereum network. Since transaction data is represented well in graph form, I looked to employ a machine learning method that exploits the connected structure without manually building large input tensors and eating memory. My goal was simple: by only looking at a static snapshot of transaction activity (edges), I wanted to identify addresses (nodes) that were home to token contracts. I could label nodes by using the [Coingecko API](https://www.coingecko.com/en/api), and train a graph convolutional neural network for binary classification.
 
+Below we can see an example how graph structure provides rich information. These two plots represent transaction graphs of two different listed tokens, including all 2nd neigbor interactions. The node color corresponds to activity as calculated using pyMIDAS. 
+
+{% include token_graph_x2.html %}
+
 ## Aggregation Methods
 
 My [website](http://pilemma.com) builds from a constantly updating python dequeu of the previous 300k transactions, and each edge has an anomalous activity index via [pyMIDAS](https://github.com/Stream-AD/MIDAS), so this our starting point for node features. Since I aim to have weightless edges and featured nodes, I average each node's edges to give a mean node acitivity index. This will be the node's first feature, and the second will be the standard deviation of edge anomalous activity indices. 
