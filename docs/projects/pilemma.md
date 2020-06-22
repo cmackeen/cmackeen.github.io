@@ -60,7 +60,7 @@ The targets are `1` if an address was a token contract listed on coingecko.com, 
 
 This project had me concerned of two things: our targets are greatly imbalanced and our technique is a bit new/foreign. With this in mind, I intended to favor recall over precision. The tools in this rapidly growing space are accesible and powerful. I am fortunate for the development of the [StellarGraph](https://stellargraph.readthedocs.io/en/stable/) package, as it integrates cutting edge graph neural network algorithms seemlessly with Keras and Tensorflow. To start I compiled my graph with feature nodes and saved it in graphml format --loading this into a stellargraph graph is trivial.
 
-A Grapch CNN can simply be understood from [this overview](https://tkipf.github.io/graph-convolutional-networks/) of a 2016 paper. The recursive rule defining the layer sin a GCN is the following:
+A Grapch CNN can simply be understood from [this overview](https://tkipf.github.io/graph-convolutional-networks/) of a 2016 paper. The recursive rule defining the layers in a GCN works as follows:
 
 $$ H^{(l+1)}=f(H^{(l)}, A) = \sigma\left( \hat{D}^{-\frac{1}{2}}\hat{A}\hat{D}^{-\frac{1}{2}}H^{(l)}W^{(l)}\right) \, , $$ 
 
