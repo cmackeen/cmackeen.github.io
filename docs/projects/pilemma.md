@@ -48,7 +48,7 @@ Below we can see an example how graph structure provides rich information. These
 
 ## Aggregation Methods
 
-My [website](http://pilemma.com) builds from a constantly updating python dequeu of the previous 300k transactions, and each edge has an anomalous activity index via [pyMIDAS](https://github.com/Stream-AD/MIDAS), so this our starting point for node features. Since I aim to have weightless edges and featured nodes, I average each node's edges to give a mean node acitivity index. This will be the node's first feature, and the second will be the standard deviation of edge anomalous activity indices. 
+My [website](http://pilemma.com) builds from a constantly updating python dequeu of the previous 300k transactions, and each edge has an anomalous activity index via [pyMIDAS](https://github.com/ritesh99rakesh/pyMIDAS), so this our starting point for node features. Since I aim to have weightless edges and featured nodes, I average each node's edges to give a mean node acitivity index. This will be the node's first feature, and the second will be the standard deviation of edge anomalous activity indices. 
 
 ![](/assets/edge_avg_node.svg)
 
@@ -110,9 +110,13 @@ Enriching a learning agent's observations is the feature engineering task at han
 
 ![Ethereum Transaction Graph](/assets/graph.jpg)
 
-Since I am focusing on augmenting the observation (state) space for the robot, I am implementing a streaming anomaly detection on transaction data, [see graph here!](http://www.pilemma.com) This graph employs a [MIDAS](https://towardsdatascience.com/anomaly-detection-in-dynamic-graphs-using-midas-e4f8d0b1db45) anomaly score to filter out negligible background acitivity, saving CPU time and enabling scalability. Aside from MIDAS, the data is brought to you by web3 endpoint [Quiknode](https://www.quiknode.io/), Web3py, Dash Cytoscape, and a streamlined deque-write:gunicorn-reload process. That means the graph is current (last 200k tx's filtered) and reloaded every 10 minutes, but when you refresh the browser it should not take long to reload unless the data is new. 
+Since I am focusing on augmenting the observation (state) space for the robot, I am implementing a streaming anomaly detection on transaction data, [see graph here!](http://www.pilemma.com) This graph employs a [MIDAS](https://github.com/Stream-AD/MIDAS)[[1]](#1) anomaly score to filter out negligible background acitivity, saving CPU time and enabling scalability. Aside from MIDAS, the data is brought to you by web3 endpoint [Quiknode](https://www.quiknode.io/), Web3py, Dash Cytoscape, and a streamlined deque-write:gunicorn-reload process. That means the graph is current (last 200k tx's filtered) and reloaded every 10 minutes, but when you refresh the browser it should not take long to reload unless the data is new. 
 
 The visualisation will help me (and others) understand what's worth the time when it comes to processing transactional graph features. I do not want to inundate the agent with transaction data, but it should be informed when activity between two DeFi exchanges is spiking. 
+
+### References
+<a id="1">[1]</a> 
+Siddharth Bhatia, Bryan Hooi, Minji Yoon, Kijung Shin and Christos Faloutsos. “MIDAS: Microcluster-Based Detector of Anomalies in Edge Streams.” AAAI Conference on Artificial Intelligence (AAAI), 2020. [https://arxiv.org/abs/1911.04464](https://arxiv.org/abs/1911.04464)
 
 # First Application
 
