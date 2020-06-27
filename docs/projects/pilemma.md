@@ -40,7 +40,7 @@ protocols for user safety and in turn, safe adoption.
 
 # Graph Convolutions: Discovery of Unlisted yet Active Ethereum Tokens
 
-On route to augmenting an RL agent environment, I have found myself rigorously modeling transaction graph data on the ethereum network. Since transaction data is represented well in graph form, I looked to employ a machine learning method that exploits the connected structure without manually building large input tensors and eating memory. My goal was simple: by only looking at a static snapshot of transaction activity (edges), I wanted to identify addresses (nodes) that were home to token contracts. I could label nodes by using the [Coingecko API](https://www.coingecko.com/en/api), and train a graph convolutional neural network for binary classification.
+On route to augmenting an RL agent environment, I have found myself rigorously modeling transaction graph data on the Ethereum network. Since transaction data is represented well in graph form, I looked to employ a machine learning method that exploits the connected structure without manually building large input tensors and eating memory. My goal was simple: by only looking at a static snapshot of transaction activity (edges), I wanted to identify addresses (nodes) that were home to token contracts. I could label nodes by using the [Coingecko API](https://www.coingecko.com/en/api), and train a graph convolutional neural network for binary classification.
 
 Below we can see an example how graph structure provides rich information. These two plots represent transaction graphs of two different listed tokens, including all 2nd neighbor interactions. The node color corresponds to activity as calculated using pyMIDAS. 
 
@@ -92,11 +92,11 @@ I did not want the model *too* sensitive to missing the `1` classes (listed toke
 
 ### So what...
 
-Well, this feature-lean and computationally economic procedure has identified 271 unlisted (on coingecko) yet currently active tokens. I strongly believe it can be tuned to predict the tokens that get [added to coingecko](https://www.coingecko.com/en/coins/recently_added) from just a time-independent snapshot of the last 300k ETH transactions. While there exist ways to abuse the etherscan and coingecko api limits to find nascent token contracts *without* my ML overkill, let's talk about next steps for applying GCN to ethereum transaction data.
+Well, this feature-lean and computationally economic procedure has identified 271 unlisted (on coingecko) yet currently active tokens. I strongly believe it can be tuned to predict the tokens that get [added to coingecko](https://www.coingecko.com/en/coins/recently_added) from just a time-independent snapshot of the last 300k ETH transactions. While there exist ways to abuse the etherscan and coingecko api limits to find nascent token contracts *without* my ML overkill, let's talk about next steps for applying GCN to Ethereum transaction data.
 
 ## Conclusion
 
-This exercise lays solid groundwork on what we can learn from algorithmically massaging the ethereum transaction data. If a node acts, talks, and walks like a coingecko listed token, it may be a coingecko listed token. If not now, then sometime *soon*. 
+This exercise lays solid groundwork on what we can learn from algorithmically massaging the Ethereum transaction data. If a node acts, talks, and walks like a coingecko listed token, it may be a coingecko listed token. If not now, then sometime *soon*. 
 
 Next comes the integration of coarse grained time dependence. By this I mean using multiple graph snapshots (over time) to predict future token characteristics. Instead of simple classification of a token being listed or not, we can predict a token's ROI for the upcoming month or week. On this idea I am excited, as I think it will also begin to quantify properties of **ponzi tokens** that are different from organic token growth. 
 
@@ -121,8 +121,8 @@ Siddharth Bhatia, Bryan Hooi, Minji Yoon, Kijung Shin and Christos Faloutsos. â€
 # First Application
 
 The current (and first) incentive structure being tested is the MakerDAO
-multi-collateral debt protocol, Dai. During a market drop of ethereum`s price
-in mid march 2020, many debt positions were liquidated and collateral ethereum
+multi-collateral debt protocol, Dai. During a market drop of Ethereum`s price
+in mid march 2020, many debt positions were liquidated and collateral Ethereum
 sold to "auction keepers". Due to network congestion and auction conditions, some
 ETH collateral was sold (AKA "flipped") at auction with nearly zero bids. 
 
@@ -139,7 +139,7 @@ While the system behavior is quite complex (and possibly unstable), my
 job is to create a reward structure and game environment where an agent can
 optimize a policy.
 
-To open a Collateral Debt Position (CDP) we lock ethereum in a contract (ETH)
+To open a Collateral Debt Position (CDP) we lock Ether (ETH) in a contract 
 and receive Dai, MakerDAO`s stablecoin. This is analogous to "minting" Dai, and
 now to get the collateral ETH back (from the "urn") you must return the Dai you
 minted. While your CDP is open, interest accruing on the debt (the "stability
@@ -187,13 +187,13 @@ But if we want it to learn well on the fly, we must augment the agent observatio
 
 ### Bitcoinj
 
-I have been generally interested in blockchain technology like bitcoin for five
-years now. Although I have done my share of armchair research into bitcoin and
+I have been generally interested in blockchain technology like Bitcoin for five
+years now. Although I have done my share of armchair research into Bitcoin and
 decentralized systems, I still lack technical understanding. With free time, a
 mentor, and a desire to contribute to open source code, I have started to work
 on bitcoinj. I will let the [bitcoinj website](https://bitcoinj.github.io/)
 explain the details; bitcoinj is a java library that
-underly many applications that interact with the bitcoin blockchain. Continued
+underly many applications that interact with the Bitcoin blockchain. Continued
 development on bitcoinj will generate more possibilities for what a blockchain
 app can do.
 
