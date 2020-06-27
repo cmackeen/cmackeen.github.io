@@ -185,16 +185,16 @@ But if we want it to learn well on the fly, we must augment the agent observatio
 
 ## Past work in blockchain tech
 
-### BitcoinJ
+### Bitcoinj
 
 I have been generally interested in blockchain technology like bitcoin for five
 years now. Although I have done my share of armchair research into bitcoin and
 decentralized systems, I still lack technical understanding. With free time, a
 mentor, and a desire to contribute to open source code, I have started to work
-on bitcoinj. I will let the [BitcoinJ website](https://bitcoinj.github.io/)
-explain the details; BitcoinJ is a java library that
+on bitcoinj. I will let the [bitcoinj website](https://bitcoinj.github.io/)
+explain the details; bitcoinj is a java library that
 underly many applications that interact with the bitcoin blockchain. Continued
-development on BitcoinJ will generate more possibilities for what a blockchain
+development on bitcoinj will generate more possibilities for what a blockchain
 app can do.
 
 For now, I am getting re-familiarized with compiled languages and testing Java
