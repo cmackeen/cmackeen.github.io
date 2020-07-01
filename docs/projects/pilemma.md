@@ -47,7 +47,7 @@ Below we can see an example how graph structure provides rich information. These
 
 ## Aggregation Methods
 
-My [website](http://pilemma.com) builds from a constantly updating python dequeu of the previous 300k transactions, and each edge has an anomalous activity index via [pyMIDAS](https://github.com/ritesh99rakesh/pyMIDAS), so this our starting point for node features. Since I aim to have weightless edges and featured nodes, I average each node's edges to give a mean node acitivity index. This will be the node's first feature, and the second will be the standard deviation of edge anomalous activity indices. 
+My [website](http://pilemma.com) builds from a constantly updating python dequeu of the previous 300k transactions, and each edge has an anomalous activity index via [pyMIDAS](https://github.com/ritesh99rakesh/pyMIDAS), so this is our starting point for node features. Since I aim to have weightless edges and featured nodes, I average each node's edges to give a mean node acitivity index. This will be the node's first feature, and the second will be the standard deviation of edge anomalous activity. 
 
 ![](/assets/edge_avg_node.svg)
 
